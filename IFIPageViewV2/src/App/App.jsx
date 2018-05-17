@@ -13,7 +13,11 @@ class App extends React.Component {
                     <div className="container ">
                         <InputComponent name="diep" type="password" value="diep@gmail.com" placeholder="Input"/>
                     </div>
+
                 </div>
+                <Button type="submit" height="100px" color="orange" width="100%" fontsize="20px" background="green" borderRadius="10px">
+                  Login
+                </Button>
         );
     }
 }
