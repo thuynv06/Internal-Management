@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styles from './css/component.css';
 
 export default class InputComponent extends React.Component{
     constructor(props) {
@@ -17,13 +18,15 @@ export default class InputComponent extends React.Component{
       onChange(e) {
         const value = e.target.value;
         this.setState({ value });
-    
-        console.log(value);
+        if (this.props.onChange) {
+          this.props.onChange(e, this.props.name);
+        }
       }
     
       render() {
         return (
-          <div>
+          <div className={styles.field_input}>
+            <span icon={this.props.fa_icon} className={this.props.icon} style={styles_custom.icon_custom}></span>
             <input
               name={this.props.name}
               type={this.props.type}
@@ -35,6 +38,14 @@ export default class InputComponent extends React.Component{
         );
       }
 }
+let styles_custom = {
+  icon_custom: {
+    position: 'absolute',
+    top: '10px',
+    left: '10px'
+  }
+};
+
 
 InputComponent.propTypes = {
 
@@ -42,10 +53,13 @@ InputComponent.propTypes = {
       'text',
       'password',
       'email',
-      'number'
+      'number',
+      'checkbox'
     ]),
+
+    fa_icon: PropTypes.string,
   
-    name: PropTypes.string.isRequired,
+    name: PropTypes.string,
   
     defaultValue: PropTypes.string,
   
@@ -66,6 +80,7 @@ InputComponent.propTypes = {
     defaultValue: '',
     placeholder: '',
     style: null,
+    fa_icon: 'fa fa-user'
   };
   
   
