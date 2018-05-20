@@ -3,6 +3,8 @@
     position: relative;
     color: #aaa;
     font-size: 16px;
+    width: 250px;
+    margin: auto;
   }
   .field_input input{
     width: 250px;
