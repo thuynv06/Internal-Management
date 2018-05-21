@@ -27,7 +27,7 @@ class Button extends Component {
     );
   }
 }
-Button.PropTypes = {
+Button.propTypes = {
   type: PropTypes.oneOf([
     'submit',
     'reset',

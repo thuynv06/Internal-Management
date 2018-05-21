@@ -4,10 +4,27 @@ import DatePicker from 'react-datepicker';
 import styles from './css/style.css';
 import InputComponent from '../_components/InputComponent';
 import Button from '../_components/Button';
+
 import TableHeaderComponent from '../_components/TableHeaderComponent';
 import TableBody from '../_components/TableBody';
 import BlockDashboard from '../_components/BlockDashboardNotificationComponent';
 import SelectListComponent from '../_components/SelectListComponent';
+
+import NavBar from '../TemplatePage/NavBar';
+import Header from '../TemplatePage/Header';
+import Footer from '../TemplatePage/Footer';
+//import { Router, Route  } from 'react-router';
+import { history } from '../_helpers/history.js';
+import { Router, Route, Link, Prompt } from "react-router-dom";
+
+import './css/custom.js';
+import Home from '../TemplatePage/Home';
+import MyLeave from '../Pages/MyLeave';
+import Login from '../Pages/Login';
+
+
+
+
 
 var data = [
 	{Invoice:'121000040', InvoiceDate:'May 23, 2014 11:47:56 PM' , BilltoName:'John A', Status:'Paid', Amount:'$7.45'},
@@ -17,24 +34,29 @@ var data = [
 
 
 class App extends React.Component {
+
     elements = data.map((data, index) =>{
         return 	<TableBody key={data.Invoice} Invoice={data.Invoice} InvoiceDate={data.InvoiceDate} BilltoName={data.BilltoName} Status={data.Status} Amount={data.Amount}>
               </TableBody>
       });
     constructor(props){
+
+        
         super(props);this.state = {
             rows: [],
             columns: [],
             clicked: false
         }
-        
+        history.push('/home');
     }
    
     
     render() {
 
         
-
+        const basePath = '/' + window.location.pathname.split('/')[1];
+        console.log(basePath);
+        
         const styleButton = {
             height: "40px", color: "yellow", width: "10%" ,fontsize: "20px" ,background:"green" ,borderRadius:"10px"
         };
@@ -84,6 +106,18 @@ class App extends React.Component {
 
                 <SelectListComponent/>
 
+
+                {/* NavBar */}
+                {/* <NavBar/>
+                <Header/>
+                <Router history={history}>
+                    <div>
+                        <Route path="/home" exact component={Home} />
+                        <Route path="/login" exact component={Login} />
+                        <Route path="/pages/leave" render={() => console.log("Leave Page")} />
+                    </div>
+                </Router>
+                <Footer/> */}
                 </div>
                 
         );

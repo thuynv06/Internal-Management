@@ -38,7 +38,7 @@ class DashboardNotificationComponent extends React.Component{
 
             <a href="#" onClick={this.viewDetail}>
               <div className="panel-footer">
-                <span className="pull-left">
+                <span className="pull-left">BlockDashboard
                   View Details
                 </span>
 

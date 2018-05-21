@@ -11,7 +11,7 @@ class BlockDashboardNotificationComponent extends React.Component{
     return(
       <div className="row">
         <div className=" col-md-12 col-xs-12">
-          <strong>{this.props.text}</strong>
+          <strong style={{fontSize:'40px',color:'red'}}>{this.props.text}</strong>
         </div>
 
         <DashboardNotificationComponent text="Add New" color="primary"/>

@@ -11,7 +11,11 @@ import { App } from './App/App.jsx';
 
 render(
     <Provider store={store}>
-        <App />
+        <div className="container body">
+            <div className="main_container">
+                <App />
+            </div>
+        </div>
     </Provider>,
     document.getElementById('root')
 );
