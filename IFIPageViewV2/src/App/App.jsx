@@ -5,6 +5,11 @@ import styles from './css/style.css';
 import InputComponent from '../_components/InputComponent';
 import Button from '../_components/Button';
 
+import DatePickerComponent from '../_components/DatePickerComponent';
+
+import BlockDashboardNotificationComponent from '../_components/BlockDashboardNotificationComponent';
+
+
 import TableHeaderComponent from '../_components/TableHeaderComponent';
 import TableBody from '../_components/TableBody';
 import BlockDashboard from '../_components/BlockDashboardNotificationComponent';
@@ -33,6 +38,7 @@ var data = [
 ];
 
 
+
 class App extends React.Component {
 
     elements = data.map((data, index) =>{
@@ -41,7 +47,7 @@ class App extends React.Component {
       });
     constructor(props){
 
-        
+
         super(props);this.state = {
             rows: [],
             columns: [],
@@ -49,14 +55,14 @@ class App extends React.Component {
         }
         history.push('/home');
     }
-   
-    
+
+
     render() {
 
-        
+
         const basePath = '/' + window.location.pathname.split('/')[1];
         console.log(basePath);
-        
+
         const styleButton = {
             height: "40px", color: "yellow", width: "10%" ,fontsize: "20px" ,background:"green" ,borderRadius:"10px"
         };
@@ -79,10 +85,10 @@ class App extends React.Component {
                     <div className={styles.tableHeader}>
                     <table id = "table1">
                         <thead>
-                    
+
                        <tr>
                        <TableHeaderComponent {...styleHeaderTable}>
-                            <input type="checkbox" id="check-all" className="flat"/>       
+                            <input type="checkbox" id="check-all" className="flat"/>
 		                </TableHeaderComponent>
                         <TableHeaderComponent idTable = "table1" colIndex = "1" {...styleHeaderTable} border="1px">Invoice</TableHeaderComponent>
                         <TableHeaderComponent idTable = "table1" colIndex = "2" {...styleHeaderTable}>Invoice Date</TableHeaderComponent>
@@ -90,16 +96,16 @@ class App extends React.Component {
                         <TableHeaderComponent idTable = "table1" colIndex = "4" {...styleHeaderTable}>Status</TableHeaderComponent>
                         <TableHeaderComponent idTable = "table1" colIndex = "5" {...styleHeaderTable}>Amount</TableHeaderComponent>
                         <TableHeaderComponent {...styleHeaderTable}><span className="nobr">Action</span></TableHeaderComponent>
-		                    
+
                         </tr>
                         </thead>
                         <tbody>
                             {this.elements}
                         </tbody>
                     </table>
-                        
+
                     </div>
-                <br/> 
+                <br/>
                 <div className={styles.dashboad}>
                     <BlockDashboard text="Leave"/>
                 </div>
@@ -119,7 +125,7 @@ class App extends React.Component {
                 </Router>
                 <Footer/> */}
                 </div>
-                
+
         );
     }
 }
