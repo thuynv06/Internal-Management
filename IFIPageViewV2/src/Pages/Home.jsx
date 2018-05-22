@@ -4,6 +4,7 @@ import Header from '../TemplatePage/Header';
 import { Router, Route } from 'react-router';
 import BlockDashboard from '../_components/BlockDashboardNotificationComponent';
 import styles from './css/pages.css';
+import InputComponent from '../_components/InputComponent';
 
 export default class Home extends React.Component{
     render(){

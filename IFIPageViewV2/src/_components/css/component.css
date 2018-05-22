@@ -9,13 +9,18 @@
   .field_input input{
     width: 250px;
     height: 32px;
-  
     background: #fcfcfc;
-    border: 1px solid #aaa;
+    /* border: 1px solid #aaa; */
     border-radius: 5px;
     box-shadow: 0 0 3px #ccc, 0 10px 15px #ebebeb inset;
-    text-indent: 32px;
+    
     color: black;
+  }
+  .text_indent{
+    text-indent: 32px;
+  }
+  .text_none{
+    text-indent: 10px;
   }
   .field_input .fa_icon { 
     position: absolute;
