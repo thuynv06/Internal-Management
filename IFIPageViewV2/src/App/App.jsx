@@ -6,6 +6,11 @@ import styles from './css/style.css';
 import InputComponent from '../_components/InputComponent';
 import Button from '../_components/Button';
 
+import DatePickerComponent from '../_components/DatePickerComponent';
+
+import BlockDashboardNotificationComponent from '../_components/BlockDashboardNotificationComponent';
+
+
 import TableHeaderComponent from '../_components/TableHeaderComponent';
 import TableBody from '../_components/TableBody';
 import BlockDashboard from '../_components/BlockDashboardNotificationComponent';
@@ -39,6 +44,7 @@ var data = [
 ];
 
 
+
 class App extends React.Component {
 
 
@@ -48,18 +54,12 @@ class App extends React.Component {
           </TableBody>
     });
     constructor(props){
-        super(props);
-        history.push('/');
 
-        const { dispatch } = this.props;
-        history.listen((location, action) => {
-            // clear alert on location change
-            dispatch(alertActions.clear());
-        });
-        // Test DatePicker
-        this.state = {
-            // or Date or Moment.js
-            selectedDate: '2017-08-13',
+        history.push("/");
+
+
+        super(props);this.state = {
+
             rows: [],
             columns: [],
             clicked: false
@@ -67,26 +67,18 @@ class App extends React.Component {
     }
 
 
-        
-        
-
-    onChange = (date) => {
-        // ...
-        this.setState({
-			selectedDate: date
-		});
-      }
-
     render() {
+
+
         const basePath = '/' + window.location.pathname.split('/')[1];
         console.log(basePath);
-        
-        // const styleButton = {
-        //     height: "40px", color: "yellow", width: "10%" ,fontsize: "20px" ,background:"green" ,borderRadius:"10px"
-        // };
-        // const styleHeaderTable={
-        //     height: "40px", color: "#ffff", width: "100px", fontsize: "15px", background: "#23527C"
-        // };
+
+        const styleButton = {
+            height: "40px", color: "yellow", width: "10%" ,fontsize: "20px" ,background:"green" ,borderRadius:"10px"
+        };
+        const styleHeaderTable={
+            height: "40px", color: "#ffff", width: "100px", fontsize: "15px", background: "#23527C"
+        };
         return (
                 // <div className={styles.container_wrap}>
                 //     <div className="container ">
@@ -98,37 +90,37 @@ class App extends React.Component {
                 //     <Button type="submit" {...styleButton}>
                 //         Login
                 //     </Button>
-
+								//
                 //     <br/>
                 //     <div className={styles.tableHeader}>
-                //         <table id = "table1">
-                //             <thead>
-                        
-                //         <tr>
-                //         <TableHeaderComponent {...styleHeaderTable}>
-                //                 <input type="checkbox" id="check-all" className="flat"/>       
-                //             </TableHeaderComponent>
-                //             <TableHeaderComponent idTable = "table1" colIndex = "1" {...styleHeaderTable} border="1px">Invoice</TableHeaderComponent>
-                //             <TableHeaderComponent idTable = "table1" colIndex = "2" {...styleHeaderTable}>Invoice Date</TableHeaderComponent>
-                //             <TableHeaderComponent idTable = "table1" colIndex = "3" {...styleHeaderTable}>Bill to Name</TableHeaderComponent>
-                //             <TableHeaderComponent idTable = "table1" colIndex = "4" {...styleHeaderTable}>Status</TableHeaderComponent>
-                //             <TableHeaderComponent idTable = "table1" colIndex = "5" {...styleHeaderTable}>Amount</TableHeaderComponent>
-                //             <TableHeaderComponent {...styleHeaderTable}><span className="nobr">Action</span></TableHeaderComponent>
-                                
-                //             </tr>
-                //             </thead>
-                //             <tbody>
-                //                 {this.elements}
-                //             </tbody>
-                //         </table>
+                //     <table id = "table1">
+                //         <thead>
+								//
+                //        <tr>
+                //        <TableHeaderComponent {...styleHeaderTable}>
+                //             <input type="checkbox" id="check-all" className="flat"/>
+		            //     </TableHeaderComponent>
+                //         <TableHeaderComponent idTable = "table1" colIndex = "1" {...styleHeaderTable} border="1px">Invoice</TableHeaderComponent>
+                //         <TableHeaderComponent idTable = "table1" colIndex = "2" {...styleHeaderTable}>Invoice Date</TableHeaderComponent>
+                //         <TableHeaderComponent idTable = "table1" colIndex = "3" {...styleHeaderTable}>Bill to Name</TableHeaderComponent>
+                //         <TableHeaderComponent idTable = "table1" colIndex = "4" {...styleHeaderTable}>Status</TableHeaderComponent>
+                //         <TableHeaderComponent idTable = "table1" colIndex = "5" {...styleHeaderTable}>Amount</TableHeaderComponent>
+                //         <TableHeaderComponent {...styleHeaderTable}><span className="nobr">Action</span></TableHeaderComponent>
+								//
+                //         </tr>
+                //         </thead>
+                //         <tbody>
+                //             {this.elements}
+                //         </tbody>
+                //     </table>
+								//
                 //     </div>
-                //     <br/> 
-                //     <div className={styles.dashboad}>
-                //         <BlockDashboard text="Leave"/>
-                //     </div>
-
-                //     <SelectListComponent/>
-                
+                // <br/>
+                // <div className={styles.dashboad}>
+                //     <BlockDashboard text="Leave"/>
+                // </div>
+								//
+                // <SelectListComponent/>
 
 
             <div>
@@ -139,8 +131,9 @@ class App extends React.Component {
                         <Route path="/login"  component={Login} />
                         <Route path="/pages/leave" component={MyLeave} />
                 </div>
-                </Router>
-            </div>
+								</Router>
+							</div>
+
         );
     }
 }

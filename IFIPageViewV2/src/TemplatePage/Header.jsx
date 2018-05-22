@@ -119,6 +119,7 @@ export default class Header extends React.Component{
                 <nav>
                 <div className="nav toggle">
                     <a id="menu_toggle" onClick={this.clickMenu}><i className="fa fa-bars"></i></a>
+                    {/* <a >IFI Solution - An NTT Data Company</a> */}
                 </div>
                 <ul className="nav navbar-nav navbar-right">
                     <li><Link to="/login"><i className="fa fa-sign-out pull-right"></i> Log Out</Link></li>
