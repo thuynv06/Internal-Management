@@ -8,6 +8,8 @@ export default class Home extends React.Component{
         return(
             
             <div>
+                <NavBar/>
+                <Header/>
                     
                     <div className="right_col" role="main">
                             abc

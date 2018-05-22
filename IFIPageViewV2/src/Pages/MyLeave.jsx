@@ -7,7 +7,8 @@ export default class MyLeave extends React.Component{
     render(){
         return(
             <div>
-                
+                <NavBar/>
+                <Header/>
                 <div className="right_col" role="main">
                         bcd
                 </div>

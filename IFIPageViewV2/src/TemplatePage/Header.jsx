@@ -29,20 +29,20 @@ export default class Header extends React.Component{
             $('body').toggleClass('nav-md nav-sm');
             
         
-            // reset height
-            $('.right_col').css('min-height', $(window).height());
+            // // reset height
+            // $('.right_col').css('min-height', $(window).height());
 
-            var bodyHeight = $('body').outerHeight(),
-                footerHeight = $('body').hasClass('footer_fixed') ? -10 : $('footer').height(),
-                leftColHeight = $('.left_col').eq(1).height() + $('.sidebar-footer').height(),
-                contentHeight = bodyHeight < leftColHeight ? leftColHeight : bodyHeight;
+            // var bodyHeight = $('body').outerHeight(),
+            //     footerHeight = $('body').hasClass('footer_fixed') ? -10 : $('footer').height(),
+            //     leftColHeight = $('.left_col').eq(1).height() + $('.sidebar-footer').height(),
+            //     contentHeight = bodyHeight < leftColHeight ? leftColHeight : bodyHeight;
 
-            // normalize content
-            contentHeight -= $('.nav_menu').height() + footerHeight;
+            // // normalize content
+            // contentHeight -= $('.nav_menu').height() + footerHeight;
 
-            $('.right_col').css('min-height', contentHeight);
+            // $('.right_col').css('min-height', contentHeight);
         
-            $('.dataTable').each ( function () { $(this).dataTable().fnDraw(); });
+            // $('.dataTable').each ( function () { $(this).dataTable().fnDraw(); });
 
             this.checkRequire();
         
@@ -122,9 +122,9 @@ export default class Header extends React.Component{
               </div>
 
               <ul className="nav navbar-nav navbar-right">
-                <Router>
+                
                     <li><Link to="/login"><i className="fa fa-sign-out pull-right"></i> Log Out</Link></li>
-                </Router>
+                
                 <li className="">
                   <a className="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                     <img src="assets/images/img.jpg" alt=""/>Nguyen Diep

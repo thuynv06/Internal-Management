@@ -8,7 +8,7 @@ export default class Footer extends React.Component{
         return(
             
             // <!-- footer content -->
-            <footer style={{background: "#2A3F54", color:"aliceblue", marginTop: "58px"}}>
+            <footer style={{background: "#2A3F54", color:"aliceblue", marginTop: "27px"}}>
                 <div className="col-md-4">
                     IFI SOLUTION
                     <hr/>
@@ -27,7 +27,7 @@ export default class Footer extends React.Component{
                 <div className="col-md-4">
                     GET IN TOUCH
                     <hr/>
-                    <i className="fa fa-home"><span>&nbsp;&nbsp;&nbsp;F12, Thang Long Tower 98A Nguy Nhu Kon Tum, HaNoi, VietNam</span></i>
+                    <i className="fa fa-home"><span>&nbsp;&nbsp;&nbsp;F12, Thang Long Tower 98A Nguy Nhu Kon Tum, HaNoi, VietNam</span></i><br/>
                     <i className="fa fa-phone">&nbsp;&nbsp;&nbsp;+84(0)2462512890</i><br/>
                     <i className="fa fa fa-envelope-o">&nbsp;&nbsp;&nbsp;contact@ifisolution.com</i>
                 </div>

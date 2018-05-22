@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link, Prompt } from "react-router-dom";
+import { BrowserRouter, Link } from "react-router-dom";
 import "./css/custom.css";
 import $ from 'jquery';
 import Home from './Home';
@@ -11,14 +11,13 @@ export default class NavBar extends React.Component{
     }
 
     componentDidMount() {
-        
-        
+
         $('#sidebar-menu').find('a').on('click', function(ev) {
             console.log('clicked - sidebar_menu');
             var $li = $(this).parent();
     
             if ($li.is('.active')) {
-                console.log("is active");
+                
                 // $('#sidebar-menu').find( "li" ).removeClass( "active active-sm" );
                 $li.removeClass('active active-sm');
                 $('ul:first', $li).slideUp(function() {
@@ -35,7 +34,7 @@ export default class NavBar extends React.Component{
                     $('.right_col').css('min-height', contentHeight);
                 });
             } else {
-                console.log("is'nt active");
+                
                 // prevent closing menu if we are on child menu
                 $('.child_menu').find( "li" ).removeClass( "active active-sm" );
                 if (!$li.parent().is('.child_menu')) {
@@ -160,7 +159,7 @@ export default class NavBar extends React.Component{
             <div id="sidebar-menu" className="main_menu_side hidden-print main_menu">
               <div className="menu_section">
                 <h3>Menu</h3>
-                <Router>
+                
                     <ul className="nav side-menu">
                         <li><Link to="/home"><i className="fa fa-home"></i>Home</Link>
                         </li>
@@ -178,7 +177,7 @@ export default class NavBar extends React.Component{
                             </ul>
                         </li>
                     </ul>
-                </Router>
+                
               </div>
             </div>
             {/* <!-- /sidebar menu --> */}
