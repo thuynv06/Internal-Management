@@ -1,26 +1,28 @@
 import React from 'react';
 import { Router, Route } from 'react-router';
 import { connect } from 'react-redux';
+import DatePicker from 'react-datepicker';
 import styles from './css/style.css';
 import InputComponent from '../_components/InputComponent';
 import Button from '../_components/Button';
+
+import TableHeaderComponent from '../_components/TableHeaderComponent';
+import TableBody from '../_components/TableBody';
+import BlockDashboard from '../_components/BlockDashboardNotificationComponent';
+import SelectListComponent from '../_components/SelectListComponent';
+
 import NavBar from '../TemplatePage/NavBar';
 import Header from '../TemplatePage/Header';
 import Footer from '../TemplatePage/Footer';
-//import { Router, Route  } from 'react-router';
 import { history } from '../_helpers/history.js';
 import { alertActions } from '../_actions/alert.actions.js';
-//import { Router, Route, Link, Prompt,BrowserRouter } from "react-router-dom";
+
 
 import './css/custom.js';
-import Home from '../TemplatePage/Home';
+import Home from '../Pages/Home';
 import MyLeave from '../Pages/MyLeave';
 import Login from '../Pages/Login';
 
-// Datepicker
-import moment from 'moment';
-import { DatePicker, DatePickerInput } from 'rc-datepicker';
-import 'rc-datepicker/lib/style.css';
 
 
 
@@ -28,11 +30,23 @@ import 'rc-datepicker/lib/style.css';
 
 
 
+
+
+var data = [
+	{Invoice:'121000040', InvoiceDate:'May 23, 2014 11:47:56 PM' , BilltoName:'John A', Status:'Paid', Amount:'$7.45'},
+	{Invoice:'121000041', InvoiceDate:'May 24, 2015 11:47:56 PM' , BilltoName:'John C', Status:'Paid', Amount:'$14.45'},
+	{Invoice:'121000042', InvoiceDate:'May 25, 2016 11:47:56 PM' , BilltoName:'John D', Status:'Paid', Amount:'$21.45'}
+];
 
 
 class App extends React.Component {
 
 
+
+    elements = data.map((data, index) =>{
+        return 	<TableBody key={data.Invoice} Invoice={data.Invoice} InvoiceDate={data.InvoiceDate} BilltoName={data.BilltoName} Status={data.Status} Amount={data.Amount}>
+          </TableBody>
+    });
     constructor(props){
         super(props);
         history.push('/');
@@ -42,18 +56,19 @@ class App extends React.Component {
             // clear alert on location change
             dispatch(alertActions.clear());
         });
-
-
-        
         // Test DatePicker
         this.state = {
             // or Date or Moment.js
-            selectedDate: '2017-08-13'
+            selectedDate: '2017-08-13',
+            rows: [],
+            columns: [],
+            clicked: false
         };
-        this.onChange = this.onChange.bind(this);
     }
-    
-    
+
+
+        
+        
 
     onChange = (date) => {
         // ...
@@ -62,35 +77,17 @@ class App extends React.Component {
 		});
       }
 
-    //render() {
-        // const styleButton = {
-        //     height: "40px", color: "orange", width: "10%" ,fontsize: "20px" ,background:"green" ,borderRadius:"10px"
-        // };
-        // return (
-        //         <div className={styles.container_wrap}>
-        //             <div className="container ">
-        //                 Username
-        //                 <InputComponent name="diep" type="text" value="root" placeholder="Username" icon="fa fa-user"/>
-        //                 Password
-        //                 <InputComponent name="diep" type="password" value="123564" placeholder="Password" icon="fa fa-unlock"/>
-        //             </div>
-        //             <Button type="submit" {...styleButton}>
-        //                 Login
-        //             </Button>
-        //         </div>
-
-    
-    
-
     render() {
-        // const date = '2015-06-26' // or Date or Moment.js
-        const styleButton = {
-            height: "40px", color: "orange", width: "10%" ,fontsize: "20px" ,background:"green" ,borderRadius:"10px"
-        };
-
+        const basePath = '/' + window.location.pathname.split('/')[1];
+        console.log(basePath);
         
-        
-        //return (
+        // const styleButton = {
+        //     height: "40px", color: "yellow", width: "10%" ,fontsize: "20px" ,background:"green" ,borderRadius:"10px"
+        // };
+        // const styleHeaderTable={
+        //     height: "40px", color: "#ffff", width: "100px", fontsize: "15px", background: "#23527C"
+        // };
+        return (
                 // <div className={styles.container_wrap}>
                 //     <div className="container ">
                 //         Username
@@ -101,26 +98,39 @@ class App extends React.Component {
                 //     <Button type="submit" {...styleButton}>
                 //         Login
                 //     </Button>
-                // </div>
-        // );
 
-        // return(
-        //     // this renders the full component (input and datepicker)
-        //     <div>
-        //         <DatePickerInput
-        //             onChange={this.onChange}
-        //             value={this.state.selectedDate}
-        //             className='my-custom-datepicker-component'
-        //         />
+                //     <br/>
+                //     <div className={styles.tableHeader}>
+                //         <table id = "table1">
+                //             <thead>
+                        
+                //         <tr>
+                //         <TableHeaderComponent {...styleHeaderTable}>
+                //                 <input type="checkbox" id="check-all" className="flat"/>       
+                //             </TableHeaderComponent>
+                //             <TableHeaderComponent idTable = "table1" colIndex = "1" {...styleHeaderTable} border="1px">Invoice</TableHeaderComponent>
+                //             <TableHeaderComponent idTable = "table1" colIndex = "2" {...styleHeaderTable}>Invoice Date</TableHeaderComponent>
+                //             <TableHeaderComponent idTable = "table1" colIndex = "3" {...styleHeaderTable}>Bill to Name</TableHeaderComponent>
+                //             <TableHeaderComponent idTable = "table1" colIndex = "4" {...styleHeaderTable}>Status</TableHeaderComponent>
+                //             <TableHeaderComponent idTable = "table1" colIndex = "5" {...styleHeaderTable}>Amount</TableHeaderComponent>
+                //             <TableHeaderComponent {...styleHeaderTable}><span className="nobr">Action</span></TableHeaderComponent>
+                                
+                //             </tr>
+                //             </thead>
+                //             <tbody>
+                //                 {this.elements}
+                //             </tbody>
+                //         </table>
+                //     </div>
+                //     <br/> 
+                //     <div className={styles.dashboad}>
+                //         <BlockDashboard text="Leave"/>
+                //     </div>
 
-        //         {/* this renders only a fixed datepicker */}
-        //         <DatePicker onChange={this.onChange} value={this.state.selectedDate} />
-        //     </div>
-        // )
+                //     <SelectListComponent/>
+                
 
-        const basePath = '/' + window.location.pathname.split('/')[1];
-        console.log(basePath);
-        return(
+
             <div>
                 <Router history={history}>
                 <div>
@@ -131,9 +141,7 @@ class App extends React.Component {
                 </div>
                 </Router>
             </div>
-            
-            
-        )  
+        );
     }
 }
 

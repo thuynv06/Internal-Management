@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import NavBar from './NavBar';
-import Header from './Header';
+import NavBar from '../TemplatePage/NavBar';
+import Header from '../TemplatePage/Header';
 import { Router, Route } from 'react-router';
+import BlockDashboard from '../_components/BlockDashboardNotificationComponent';
 
 export default class Home extends React.Component{
     render(){
@@ -12,7 +13,9 @@ export default class Home extends React.Component{
                 <Header/>
                     
                     <div className="right_col" role="main">
-                            abc
+                        
+                            <BlockDashboard text="Leave"/>
+                        
                     </div>
             </div>
         )
