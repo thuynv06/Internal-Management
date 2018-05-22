@@ -9,7 +9,7 @@
   .field_input input{
     width: 250px;
     height: 32px;
-  
+
     background: #fcfcfc;
     border: 1px solid #aaa;
     border-radius: 5px;
@@ -17,8 +17,11 @@
     text-indent: 32px;
     color: black;
   }
-  .field_input .fa_icon { 
+  .field_input .fa_icon {
     position: absolute;
     top: 10px;
     left: 10px;
+  }
+  .block_dashboard{
+    margin-bottom: 80px;
   }
