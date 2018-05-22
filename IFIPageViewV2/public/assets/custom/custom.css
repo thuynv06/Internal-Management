@@ -4283,12 +4283,12 @@ table thead .checkbox.radio { margin-top:-7px;margin-top:-21px; }
     padding: 30px 20px 185px 20px;
     border: 0px solid black;
     border-radius: 10px;
-    width: 340px;
+    width: 375px;
     margin: auto;
     margin-bottom: 50px;
   }
   .login_text{
-    color: antiquewhite;
+    color: dimgray;
     font-weight: bold;
   }
   .button_block{

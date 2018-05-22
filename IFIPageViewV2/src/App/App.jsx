@@ -1,4 +1,5 @@
 import React from 'react';
+import { Router, Route } from 'react-router';
 import { connect } from 'react-redux';
 import DatePicker from 'react-datepicker';
 import styles from './css/style.css';
@@ -18,14 +19,19 @@ import SelectListComponent from '../_components/SelectListComponent';
 import NavBar from '../TemplatePage/NavBar';
 import Header from '../TemplatePage/Header';
 import Footer from '../TemplatePage/Footer';
-//import { Router, Route  } from 'react-router';
 import { history } from '../_helpers/history.js';
-import { Router, Route, Link, Prompt } from "react-router-dom";
+import { alertActions } from '../_actions/alert.actions.js';
+
 
 import './css/custom.js';
-import Home from '../TemplatePage/Home';
+import Home from '../Pages/Home';
 import MyLeave from '../Pages/MyLeave';
 import Login from '../Pages/Login';
+
+
+
+
+
 
 
 
@@ -41,19 +47,22 @@ var data = [
 
 class App extends React.Component {
 
+
+
     elements = data.map((data, index) =>{
         return 	<TableBody key={data.Invoice} Invoice={data.Invoice} InvoiceDate={data.InvoiceDate} BilltoName={data.BilltoName} Status={data.Status} Amount={data.Amount}>
-              </TableBody>
-      });
+          </TableBody>
+    });
     constructor(props){
 
 
+
         super(props);this.state = {
+
             rows: [],
             columns: [],
             clicked: false
-        }
-        history.push('/home');
+        };
     }
 
 
@@ -70,61 +79,59 @@ class App extends React.Component {
             height: "40px", color: "#ffff", width: "100px", fontsize: "15px", background: "#23527C"
         };
         return (
-                <div className={styles.container_wrap}>
-                    <div className="container ">
-                        Username
-                        <InputComponent name="diep" type="text" value="root" placeholder="Username" icon="fa fa-user"/>
-                        Password
-                        <InputComponent name="diep" type="password" value="123564" placeholder="Password" icon="fa fa-unlock"/>
-                    </div>
-                    <Button type="submit" {...styleButton}>
-                        Login
-                    </Button>
+                // <div className={styles.container_wrap}>
+                //     <div className="container ">
+                //         Username
+                //         <InputComponent name="diep" type="text" value="root" placeholder="Username" icon="fa fa-user"/>
+                //         Password
+                //         <InputComponent name="diep" type="password" value="123564" placeholder="Password" icon="fa fa-unlock"/>
+                //     </div>
+                //     <Button type="submit" {...styleButton}>
+                //         Login
+                //     </Button>
+								//
+                //     <br/>
+                //     <div className={styles.tableHeader}>
+                //     <table id = "table1">
+                //         <thead>
+								//
+                //        <tr>
+                //        <TableHeaderComponent {...styleHeaderTable}>
+                //             <input type="checkbox" id="check-all" className="flat"/>
+		            //     </TableHeaderComponent>
+                //         <TableHeaderComponent idTable = "table1" colIndex = "1" {...styleHeaderTable} border="1px">Invoice</TableHeaderComponent>
+                //         <TableHeaderComponent idTable = "table1" colIndex = "2" {...styleHeaderTable}>Invoice Date</TableHeaderComponent>
+                //         <TableHeaderComponent idTable = "table1" colIndex = "3" {...styleHeaderTable}>Bill to Name</TableHeaderComponent>
+                //         <TableHeaderComponent idTable = "table1" colIndex = "4" {...styleHeaderTable}>Status</TableHeaderComponent>
+                //         <TableHeaderComponent idTable = "table1" colIndex = "5" {...styleHeaderTable}>Amount</TableHeaderComponent>
+                //         <TableHeaderComponent {...styleHeaderTable}><span className="nobr">Action</span></TableHeaderComponent>
+								//
+                //         </tr>
+                //         </thead>
+                //         <tbody>
+                //             {this.elements}
+                //         </tbody>
+                //     </table>
+								//
+                //     </div>
+                // <br/>
+                // <div className={styles.dashboad}>
+                //     <BlockDashboard text="Leave"/>
+                // </div>
+								//
+                // <SelectListComponent/>
 
-                    <br/>
-                    <div className={styles.tableHeader}>
-                    <table id = "table1">
-                        <thead>
 
-                       <tr>
-                       <TableHeaderComponent {...styleHeaderTable}>
-                            <input type="checkbox" id="check-all" className="flat"/>
-		                </TableHeaderComponent>
-                        <TableHeaderComponent idTable = "table1" colIndex = "1" {...styleHeaderTable} border="1px">Invoice</TableHeaderComponent>
-                        <TableHeaderComponent idTable = "table1" colIndex = "2" {...styleHeaderTable}>Invoice Date</TableHeaderComponent>
-                        <TableHeaderComponent idTable = "table1" colIndex = "3" {...styleHeaderTable}>Bill to Name</TableHeaderComponent>
-                        <TableHeaderComponent idTable = "table1" colIndex = "4" {...styleHeaderTable}>Status</TableHeaderComponent>
-                        <TableHeaderComponent idTable = "table1" colIndex = "5" {...styleHeaderTable}>Amount</TableHeaderComponent>
-                        <TableHeaderComponent {...styleHeaderTable}><span className="nobr">Action</span></TableHeaderComponent>
-
-                        </tr>
-                        </thead>
-                        <tbody>
-                            {this.elements}
-                        </tbody>
-                    </table>
-
-                    </div>
-                <br/>
-                <div className={styles.dashboad}>
-                    <BlockDashboard text="Leave"/>
-                </div>
-
-                <SelectListComponent/>
-
-
-                {/* NavBar */}
-                {/* <NavBar/>
-                <Header/>
+            <div>
                 <Router history={history}>
-                    <div>
-                        <Route path="/home" exact component={Home} />
-                        <Route path="/login" exact component={Login} />
-                        <Route path="/pages/leave" render={() => console.log("Leave Page")} />
-                    </div>
-                </Router>
-                <Footer/> */}
+                <div>
+                        <Route exact path="/home"  component={Home} />
+                        <Route exact path="/"  component={Home} />
+                        <Route path="/login"  component={Login} />
+                        <Route path="/pages/leave" component={MyLeave} />
                 </div>
+								</Router>
+							</div>
 
         );
     }
