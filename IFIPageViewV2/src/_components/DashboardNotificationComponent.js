@@ -16,7 +16,7 @@ class DashboardNotificationComponent extends React.Component{
 
     return(
 
-        <div className="col-lg-2 col-md-2 col-xs-12">
+        <div className="col-lg-3 col-md-3 col-xs-12">
           <div className={'panel panel-'+this.props.color}>
             <div className="panel-heading">
               <div className="row">

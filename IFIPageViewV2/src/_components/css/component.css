@@ -16,6 +16,7 @@
     
     color: black;
   }
+
   .text_indent{
     text-indent: 32px;
   }
@@ -26,4 +27,7 @@
     position: absolute;
     top: 10px;
     left: 10px;
+  }
+  .block_dashboard{
+    margin-bottom: 80px;
   }
