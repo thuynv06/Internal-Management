@@ -22,6 +22,39 @@
     top: 10px;
     left: 10px;
   }
+
+
+
+
+
+
+/* Nguyên */
   .block_dashboard{
     margin-bottom: 80px;
+    border:2px solid #ff9900;
+    padding: 0px;
+    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .panel{
+    position:relative;
+    margin-bottom: 0px;
+    border-radius: 0px;
+
+  }
+  .panell{
+    padding: 0px;
+  }
+  .panel_footer{
+    opacity: 0;
+    position: absolute;
+    bottom:0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+  }
+  .panel:hover .panel_footer{
+    opacity: 1;
+    -webkit-transition: opacity 1s; /* Safari */
+    transition: opacity 1s;
   }

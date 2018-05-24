@@ -10,9 +10,9 @@ class BlockDashboardNotificationComponent extends React.Component{
 
   render(){
     return(
-      <div className={'row '+styles.block_dashboard }>
-        <div className=" col-md-12 col-xs-12">
-          <strong style={{fontSize:'40px',color:'red'}}>{this.props.text}</strong>
+      <div className={'col-lg-12 col-md-12 col-xs-12 '+styles.block_dashboard }>
+        <div className="col-lg-12 col-md-12 col-xs-12">
+          <strong style={{fontSize:'40px',color:'#339966'}}>{this.props.text}</strong>
         </div>
 
         <DashboardNotificationComponent text="New" color="primary"/>
