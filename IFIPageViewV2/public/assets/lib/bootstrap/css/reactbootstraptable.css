@@ -447,7 +447,7 @@ th.react-bs-table-expand-cell > div {
 		/*
 		Label the data
 		*/
-		td:nth-of-type(1):before { content: "Project"; }
+		/* td:nth-of-type(1):before { content: "Project"; }
 		td:nth-of-type(2):before { content: "Date"; }
 		td:nth-of-type(3):before { content: "From Hour"; }
 		td:nth-of-type(4):before { content: "To Hour"; }
@@ -455,7 +455,7 @@ th.react-bs-table-expand-cell > div {
 		td:nth-of-type(6):before { content: "Type"; }
 		td:nth-of-type(7):before { content: "Description"; }
 		td:nth-of-type(8):before { content: "Delete"; }
-		td:nth-of-type(9):before { content: "Edit"; }
+		td:nth-of-type(9):before { content: "Edit"; } */
 
 	}
 
