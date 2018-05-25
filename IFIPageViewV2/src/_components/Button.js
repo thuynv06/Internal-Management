@@ -7,21 +7,22 @@ class Button extends Component {
   constructor(props){
       super(props);
       this.state = {};
-      this.onClick = this.onClick.bind(this);
+      //  this.onClick = this.onClick.bind(this);
   }
 
   onClick(){
     if(this.props.onCick){
       this.props.onClick();
+      console.log('clicked');
     }
   }
   render() {
     const{type,fontsize,width,height,color,background,borderRadius,children} = this.props;
     return (
       <div>
-      <input type={type} onClick={this.onClick}
+      <button type={type}
         style={{ fontSize: fontsize, width: width, height:height,color:color,background:background,
-                  borderRadius:borderRadius, border:'none'}} value={children}/>
+                  borderRadius:borderRadius, border:'none'}}>{children}</button>
 
       </div>
     );
@@ -43,7 +44,7 @@ Button.propTypes = {
 }
 
 Button.defaultProps={
-  type:'',
+  type:'button',
   background:'#56aaff',
   color:'white',
   width:'',

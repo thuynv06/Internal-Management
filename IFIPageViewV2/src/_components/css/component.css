@@ -38,6 +38,9 @@
   #pagination_container {
     display: flex;
     justify-content: center;
+    width: 50%;
+    float: right;
+    margin-bottom: 50px;
     }
     
     #pagination {
