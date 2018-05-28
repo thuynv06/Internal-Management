@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import styles from './css/component.css';
 
 
 export default class TableHeaderComponent extends React.Component {
@@ -9,22 +9,24 @@ export default class TableHeaderComponent extends React.Component {
         this.state = {};
         // this.onChange=this.onChange.bind(this);
         this.handleColumnClick = this.handleColumnClick.bind(this);
-        this.colIndex = this.props.colIndex;
+       this.colindex = this.props.colindex;
         this.idTable = this.props.idTable;
+        this.icon = true;
     }
     
 
     handleColumnClick = (e) => {
-
-        
+        this.icon = !this.icon;
+        console.log(this.icon);
         console.log(e.target.value);
         if(e.target.value != "on"){
-            var n= parseInt(this.colIndex);
+        var n= parseInt(this.colindex);
         var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
         table = document.getElementById(this.idTable);
         switching = true;
         // Set the sorting direction to ascending:
         dir = "asc";
+       
         /* Make a loop that will continue until
         no switching has been done: */
         while (switching) {
@@ -49,6 +51,7 @@ export default class TableHeaderComponent extends React.Component {
                         break;
                     }
                 } else if (dir == "desc") {
+                   
                     if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
                         // If so, mark as a switch and break the loop:
                         shouldSwitch = true;
@@ -64,7 +67,7 @@ export default class TableHeaderComponent extends React.Component {
                 // Each time a switch is done, increase this count by 1:
                 switchcount++;
             } else {
-                /* If no switching has been done AND the direction is "asc",
+                /* If no switching has been done AND the direction is "asc",fa fa-fw fa-sort
                 set the direction to "desc" and run the while loop again. */
                 if (switchcount == 0 && dir == "asc") {
                     dir = "desc";
@@ -74,10 +77,9 @@ export default class TableHeaderComponent extends React.Component {
         }
     }
         
-    
-       
+     
         
-    
+        this.forceUpdate();
     }
 
 
@@ -98,26 +100,28 @@ export default class TableHeaderComponent extends React.Component {
             height,
             color,
             background,
-            border } = this.props;
+            border,
+            check,icon } = this.props;
 
 
         return (
 
             
 
-            <th onClick={this.handleColumnClick}
+            <th
                 data-is-only-head={this.props.isOnlyHead}
-                colIndex={this.colIndex}
+                colindex={this.colindex}
                 style={{
                     fontSize: fontsize, width: width, height: height, color: color, background: background,
                     border: border
                 }}>  {this.props.children}
-
-                <div onClick={e => e.stopPropagation()}>
-                    {this.props.filter && !isOnlyHead ? this.getFilters() : null}
-                </div>
-
+                    {check ?<i className={styles.style_icon}>
+                    
+                    <span onClick={this.handleColumnClick} className={!this.icon ? "fa fa-sort-asc" : "fa fa-sort-desc"}></span>
+                    </i>:''}
+             
             </th>
+            
 
 
 
@@ -141,7 +145,9 @@ TableHeaderComponent.propTypes = {
     fontSize: PropTypes.string,
     border: PropTypes.string,
     defaultValue: PropTypes.string,
-    colIndex: PropTypes.string,
+    colindex: PropTypes.string,
+    check:PropTypes.bool,
+    icon: PropTypes.bool,
 
 }
 TableHeaderComponent.defaultProps = {
@@ -155,5 +161,6 @@ TableHeaderComponent.defaultProps = {
     border: '',
     defaultValue: '',
     sort: undefined,
-    colIndex:'0',
+  //  colindex:'0',
+    check:false
 };
