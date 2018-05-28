@@ -29,20 +29,20 @@ export default class Header extends React.Component{
             $('body').toggleClass('nav-md nav-sm');
             
         
-            // reset height
-            $('.right_col').css('min-height', $(window).height());
+            // // reset height
+            // $('.right_col').css('min-height', $(window).height());
 
-            var bodyHeight = $('body').outerHeight(),
-                footerHeight = $('body').hasClass('footer_fixed') ? -10 : $('footer').height(),
-                leftColHeight = $('.left_col').eq(1).height() + $('.sidebar-footer').height(),
-                contentHeight = bodyHeight < leftColHeight ? leftColHeight : bodyHeight;
+            // var bodyHeight = $('body').outerHeight(),
+            //     footerHeight = $('body').hasClass('footer_fixed') ? -10 : $('footer').height(),
+            //     leftColHeight = $('.left_col').eq(1).height() + $('.sidebar-footer').height(),
+            //     contentHeight = bodyHeight < leftColHeight ? leftColHeight : bodyHeight;
 
-            // normalize content
-            contentHeight -= $('.nav_menu').height() + footerHeight;
+            // // normalize content
+            // contentHeight -= $('.nav_menu').height() + footerHeight;
 
-            $('.right_col').css('min-height', contentHeight);
+            // $('.right_col').css('min-height', contentHeight);
         
-            $('.dataTable').each ( function () { $(this).dataTable().fnDraw(); });
+            // $('.dataTable').each ( function () { $(this).dataTable().fnDraw(); });
 
             this.checkRequire();
         
@@ -115,25 +115,37 @@ export default class Header extends React.Component{
         return(
             // <!-- top navigation -->
         <div className="top_nav">
-          <div className="nav_menu">
-            <nav>
-              <div className="nav toggle">
-                <a id="menu_toggle" onClick={this.clickMenu}><i className="fa fa-bars"></i></a>
-              </div>
-
-              <ul className="nav navbar-nav navbar-right">
-                <Router>
+            <div className="nav_menu">
+                <nav>
+                <div className="nav toggle">
+                    <a id="menu_toggle" onClick={this.clickMenu}><i className="fa fa-bars"></i></a>
+                    {/* <a >IFI Solution - An NTT Data Company</a> */}
+                </div>
+                <ul className="nav navbar-nav navbar-right">
                     <li><Link to="/login"><i className="fa fa-sign-out pull-right"></i> Log Out</Link></li>
-                </Router>
-                <li className="">
-                  <a className="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="assets/images/img.jpg" alt=""/>Nguyen Diep
-                  </a>
-                </li>
+                    <li className="">
+                    <a className="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <img src="assets/images/img.jpg" alt=""/>Nguyen Diep
+                    </a>
+                    </li>
+                    <li><div className="runtext-container">
+                        <div className="main-runtext">
+                            <marquee direction="">
+                                <div className="holder">
+                                    <div className="text-container">
+                                &nbsp; &nbsp; <img src="http://www.ifisolution.com/wp-content/themes/steel/images/favicon.png"/>
+                                &nbsp; <a data-fancybox-group="gallery" className="fancybox" href="http://www.ifisolution.com/wp-content/themes/steel/images/favicon.png" title="IFI SOLUTION">
+                                IFI Solution là Công ty thành viên của Tập đoàn NTT Data chuyên thực hiện các dự án phần mềm cho khách hàng Pháp, Ý, Nhật bản</a>
+                                    </div>
+                                </div>
+                            </marquee>
+                        </div>
+                </div></li>
+                </ul>
+                </nav>
                 
-              </ul>
-            </nav>
-          </div>
+            </div>
+            
         </div>
         /* <!-- /top navigation --> */
         );

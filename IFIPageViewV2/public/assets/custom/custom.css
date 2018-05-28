@@ -1,16 +1,16 @@
 
 html , body{
-	
+
  height:100%;
- 
+
 }
- 
+
 .full-width {
-	
+
  width:100%;
- 
+
  }
- 
+
 .full-height{
  height:100%;
  }
@@ -636,7 +636,7 @@ table.no-margin .progress {
 }
 .row {
     margin-right: -10px;
-    margin-left: -10px
+    margin-left: -10px;
 }
 .grid_slider .col-md-6 {
     padding: 0 40px
@@ -4241,7 +4241,7 @@ ul.notifications {
 table thead .checkbox { margin-top:-7px;margin-top:-21px; }
 table thead .checkbox.radio { margin-top:-7px;margin-top:-21px; }
 */
-			
+
 .daterangepicker.xdisplay { width:228px; }
 
 .dataTables_wrapper > .row{
@@ -4265,7 +4265,7 @@ table thead .checkbox.radio { margin-top:-7px;margin-top:-21px; }
 /* Login page */
 .login_page{
     text-align: center;
-    
+
 }
 .logo_user{
     border: 1px solid grey;
@@ -4283,16 +4283,87 @@ table thead .checkbox.radio { margin-top:-7px;margin-top:-21px; }
     padding: 30px 20px 185px 20px;
     border: 0px solid black;
     border-radius: 10px;
-    width: 340px;
+    width: 375px;
     margin: auto;
     margin-bottom: 50px;
   }
   .login_text{
-    color: antiquewhite;
+    color: dimgray;
     font-weight: bold;
   }
   .button_block{
       margin-top: 30px;
   }
 
+
+  /* text move */
+  /* CSS Document */
+
+marquee {
+	margin-top: 5px;
+	width: 100%;
+}
+
+.runtext-container {
+/* background-color:#ddddff;
+*background-color:#ccf; */
+/* background-image:-moz-linear-gradient(top,#ccf,#fff);
+background-image:-webkit-gradient(linear,0 0,0 100%,from(#ccf),to(#fff));
+background-image:-webkit-linear-gradient(top,#ccf,#fff);
+background-image:-o-linear-gradient(top,#ccf,#fff);
+background-image:linear-gradient(to bottom,#ccf,#fff);
+background-repeat:repeat-x; */
+	/* border: 4px solid #000000;
+	box-shadow:0 5px 20px rgba(0, 0, 0, 0.9); */
+
+width: 850px;
+/* overflow-x: hidden;
+overflow-y: visible; */
+/* margin: 0 60px 0 30px; */
+margin-top: 12px;
+padding:0 3px 0 3px;
+}
+
+.main-runtext {margin: 0 auto;
+overflow: visible;
+position: relative;
+height: 40px;
+}
+
+.runtext-container .holder {
+position: relative;
+overflow: visible;
+display:inline;
+float:left;
+
+}
+
+.runtext-container .holder .text-container {
+	display:inline;
+}
+
+.runtext-container .holder a{
+	text-decoration: none;
+	font-weight: bold;
+	color:#ff0000;
+	text-shadow:0 -1px 0 rgba(0,0,0,0.25);
+	line-height: -0.5em;
+	font-size:16px;
+}
+
+.runtext-container .holder a:hover{
+	text-decoration: none;
+	color:#6600ff;
+}
   
+.brief-text{
+	white-space: nowrap; 
+    width: 100px; 
+    overflow: hidden;
+	text-overflow:ellipsis;
+	text-align: initial;
+}
+.brief-text:hover{
+	overflow: visible;
+	white-space: pre-line;
+}

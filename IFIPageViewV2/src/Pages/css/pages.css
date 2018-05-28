@@ -1,0 +1,12 @@
+.tableHeader{
+    margin-left: 100px;
+  }
+  .dashboad{
+    margin-left: 100px;
+  }
+
+  @media screen and (max-width: 768px) {
+        .dashboad{
+        margin-left: 0px !important;
+        }
+    }
