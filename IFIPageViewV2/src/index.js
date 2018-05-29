@@ -10,12 +10,14 @@ import { App } from './App/App.jsx';
 //configureFakeBackend();
 
 render(
-    <Provider store={store}>
-        <div className="container body">
-            <div className="main_container">
-                <App />
-            </div>
-        </div>
-    </Provider>,
+
+            <Provider store={store}>
+                <div className="container body">
+                    <div className="main_container">
+                        <App />
+                    </div>
+                </div>                
+            </Provider>
+,
     document.getElementById('root')
 );

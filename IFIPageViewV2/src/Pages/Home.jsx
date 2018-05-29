@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import NavBar from '../TemplatePage/NavBar';
 import Header from '../TemplatePage/Header';
 import { Router, Route } from 'react-router';
@@ -12,6 +13,8 @@ import HeaderComponet from '../_components/TableComponent/TableHeaderComponent';
 import BodyComponent from '../_components/TableComponent/TableBodyComponent';
 import SelectListComponent from '../_components/SelectListComponent';
 
+import { leaveActions } from '../_actions/leave.actions.js';
+
 export default class Home extends React.Component{
     
     constructor(props){
@@ -19,16 +22,39 @@ export default class Home extends React.Component{
         this.state = {
             users: [],
             renderedUsers: [],
+            loading: true,
+            pages:0,
             page: 1,
             sizePerPage:10,
-            rows:[]
+            status:0,
+            rows:[],
         };
         
         this.handlePageChange = this.handlePageChange.bind(this);
         this.changePerPage = this.changePerPage.bind(this);
     }
 
-    handlePageChange(page,_dataTable) {
+    componentDidMount() {
+        this.fetchData();
+        // In a real app we make an http request
+        setTimeout(() => {
+            this.setState({ users, renderedUsers: users.slice(0, this.state.sizePerPage), total: users.length });
+        })
+        this.setState({
+            users: this.props.tableData
+        });
+    }
+
+    fetchData(page, pageSize, status){
+        if(status == undefined) status = this.state.status;
+        if(page == undefined) page = this.state.page;
+        if(pageSize == undefined) pageSize = this.state.sizePerPage;
+
+        this.props.dispatch(leaveActions.getLeaveByPage(page,pageSize,this.state.sorted,0));
+
+    }
+
+    handlePageChange(page) {
         const renderedUsers = this.state.users.slice((page - 1) * this.state.sizePerPage, (page - 1) * this.state.sizePerPage + this.state.sizePerPage);
         // in a real app you could query the specific page from a server user list
         this.setState({ page, renderedUsers });
@@ -38,15 +64,7 @@ export default class Home extends React.Component{
         console.log("edit hehe");
     }
     
-    componentDidMount() {
-        // In a real app we make an http request
-        setTimeout(() => {
-            this.setState({ users, renderedUsers: users.slice(0, this.state.sizePerPage), total: users.length });
-        })
-        this.setState({
-            users: this.props.tableData
-        });
-    }
+    
     changePerPage(e){
         this.setState({
             sizePerPage : Number(e.target.value)
@@ -55,19 +73,19 @@ export default class Home extends React.Component{
     }
 
     render(){
+        const {leaveList,pages,loading}  = this.props;
         const { page, total, renderedUsers} = this.state;
-        // Example Data
-        const tableData = {
-            headerCol: ["Project","From Date", "To Date", "Status","Type","Description","User Approved","User Next Approved"],
-            columns: Object.keys(users[0]),
-            rows: []
-        };
-
-        const selectData = [10,20,30];
+        // // Example Data
+        // const tableData = {
+        //     headerCol: ["Project","From Date", "To Date", "Status","Type","Description","User Approved","User Next Approved"],
+        //     columns: Object.keys(leaveList[0]),
+        //     rows: []
+        // };
+        // for(var i = 0 ; i<leaveList.length ; i++)
+        //     tableData.rows.push(leaveList[i]);
         
-        for(var i = 0 ; i<users.length ; i++)
-            tableData.rows.push(users[i]);
             
+        const selectData = [10,20,30];
 
         return(
             
@@ -80,19 +98,12 @@ export default class Home extends React.Component{
                             {/* <BlockDashboard text="Leave"/>
                             <BlockDashboard text="Overtime"/> */}
                         </div>
-
-
-                        {/* <ul id="user-list">
-                        {
-                            renderedUsers.map(user =>
-                            <li key={user.id} className="user-list-item">
-                                {user.name}
-                            </li>)
-                        }
-                        </ul> */}
-                        <TableComponent data = {tableData} idTable="table1" isCrud={true}/>
+                        {/* <TableComponent data = {tableData} idTable="table1" isCrud={true}/> */}
 
                         <div>
+                            {leaveList && leaveList.map((ov,item)=>{
+                                <div>{ov.projectId}</div>
+                            })}
                             <Pagination
                             margin={2}
                             page={page}
@@ -106,3 +117,16 @@ export default class Home extends React.Component{
         )
     }
 }
+
+function mapStateToProps(state) {
+    const { leaveList,pages, loading } = state.leaves;
+  
+    return {
+        leaveList,
+        loading,
+        pages
+    };
+}
+
+const connectedLeave = connect(mapStateToProps)(Home);
+export { connectedLeave as Home };

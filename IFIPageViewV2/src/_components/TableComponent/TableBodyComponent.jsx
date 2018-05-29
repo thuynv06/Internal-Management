@@ -33,7 +33,7 @@ export default class TableBody extends React.Component{
                                 return <td key={index}><div className="brief-text">{row[column]}</div></td>;
                             })}
                             {isCrud &&
-                                  <td><a onClick={() =>this.handleClickRow(row[dataColumns[0]])}>Edit</a>
+                                  <td><Button onClick={() =>this.handleClickRow(row[dataColumns[0]])}>Edit</Button>
                                  {/* <td>
                                      <Button type="button" onClick={() =>this.handleClickRow(row[dataColumns[0]])}>Edit</Button> */}
                                 </td>

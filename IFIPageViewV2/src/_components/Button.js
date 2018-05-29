@@ -22,7 +22,7 @@ class Button extends Component {
       <div>
       <button type={type}
         style={{ fontSize: fontsize, width: width, height:height,color:color,background:background,
-                  borderRadius:borderRadius, border:'none'}}>{children}</button>
+                  borderRadius:borderRadius, border:'none'}} onClick={this.props.onClick}>{children}</button>
 
       </div>
     );
