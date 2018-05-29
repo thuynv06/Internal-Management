@@ -5,6 +5,7 @@ import DatePicker from 'react-datepicker';
 import styles from './css/style.css';
 import InputComponent from '../_components/InputComponent';
 import Button from '../_components/Button';
+import ReactConfirmAlert, { confirmAlert } from 'react-confirm-alert';
 
 import DatePickerComponent from '../_components/DatePickerComponent';
 
@@ -23,7 +24,7 @@ import Header from '../TemplatePage/Header';
 import Footer from '../TemplatePage/Footer';
 import { history } from '../_helpers/history.js';
 import { alertActions } from '../_actions/alert.actions.js';
-
+import {mypageActions} from '../_actions/mypage.actions.js';
 
 import './css/custom.js';
 import Home from '../Pages/Home';
@@ -77,6 +78,7 @@ class App extends React.Component {
 
 
 
+
     constructor(props){
 
         history.push("/");
@@ -88,25 +90,37 @@ class App extends React.Component {
             columns: [],
             clicked: false
         };
+        this.handleLogin=this.handleLogin.bind(this);
     }
 
-
+    handleLogin(){
+       
+        this.props.dispatch(mypageActions.openPopup());
+       
+    };
     render() {
 
-
+        const {isOpen} = this.props;
         const basePath = '/' + window.location.pathname.split('/')[1];
         console.log(basePath);
 
         const styleButton = {
-            height: "40px", color: "yellow", width: "10%" ,fontsize: "20px" ,background:"green" ,borderRadius:"10px"
+            height: "40px", color: "yellow", width: "10%" ,fontSize: "20px" ,background:"green" ,borderradius:"10px"
         };
         const styleHeaderTable={
-            height: "40px", color: "#ffff", width: "100px", fontsize: "15px", background: "#23527C"
+            height: "40px", color: "#ffff", width: "100px", fontSize: "15px", background: "#23527C"
         };
 
         
         return (
-
+            <div>
+                 
+                <button type="button"  onClick={this.handleLogin} {...styleButton}>
+                    Login
+                </button>
+                {isOpen && <div><h1>Hello</h1></div>}
+             </div>			
+        
         
                 // <div className={styles.container_wrap}>
                 //     <div className="container ">
@@ -115,20 +129,17 @@ class App extends React.Component {
                 //         Password
                 //         <InputComponent name="diep" type="password" value="123564" placeholder="Password" icon="fa fa-unlock"/>
                 //     </div>
-                //     <Button type="submit" {...styleButton}>
-                //         Login
-                //     </Button>
-								//
+               	//
                 //     <br/>
-                //     <div className={styles.tableHeader}>
-                //     <table id = "table1">
-                //         <thead>
-								//
-                //        <tr>
-                //        <TableHeaderComponent {...styleHeaderTable}>
-                //             <input type="checkbox" id="check-all" className="flat"/>
-		            //     </TableHeaderComponent>
-                //         <TableHeaderComponent idTable = "table1" colIndex = "1" {...styleHeaderTable} border="1px">Invoice</TableHeaderComponent>
+                //     <diisOpenv className={styles.tableHeader}>
+                //     <taisOpenble id = "table1">
+                //        isOpen <thead>
+					//	isOpen		
+                //        isOpen<tr>
+                //        isOpen<TableHeaderComponent {...styleHeaderTable}>
+                //        isOpen     <input type="checkbox" id="check-all" className="flat"/>
+		            //    isOpen </TableHeaderComponent>
+                //        isOpen <TableHeaderComponent idTable = "table1" colIndex = "1" {...styleHeaderTable} border="1px">Invoice</TableHeaderComponent>
                 //         <TableHeaderComponent idTable = "table1" colIndex = "2" {...styleHeaderTable}>Invoice Date</TableHeaderComponent>
                 //         <TableHeaderComponent idTable = "table1" colIndex = "3" {...styleHeaderTable}>Bill to Name</TableHeaderComponent>
                 //         <TableHeaderComponent idTable = "table1" colIndex = "4" {...styleHeaderTable}>Status</TableHeaderComponent>
@@ -151,7 +162,7 @@ class App extends React.Component {
                 // <SelectListComponent/>
 
 
-            <div>
+           /* <div>
                 <Router history={history}>
                 <div>
                         <Route exact path="/home"  component={Home} />
@@ -164,7 +175,7 @@ class App extends React.Component {
 				</Router>
 
                
-			</div>
+			</div>*/
 
 
         );
@@ -173,8 +184,10 @@ class App extends React.Component {
 
 function mapStateToProps(state) {
     const { alert } = state;
+    const { isOpen } = state.popup;
     return {
-        alert
+        alert,
+        isOpen,
     };
 }
 
