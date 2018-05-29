@@ -12,7 +12,8 @@ class SelectListComponent extends React.Component{
   }
 
   // Được gọi khi người dùng click vào option
-  handleChange(e){
+  handleChange(value){
+    this.setState({value})
     console.log(this.refs.sl.value);
   }
 
@@ -20,10 +21,10 @@ class SelectListComponent extends React.Component{
     return(
 
       <div className="form-group">
-        <label htmlFor="sel1">Select list:</label>
-        <select ref="sl" className="form-control" onChange={this.handleChange} id="sel1">
+        {/* <label htmlFor="sel1">Select list:</label> */}
+        <select ref="sl" className="form-control" id="sel1" onChange={this.props.onChange} style={{width: "10%"}}>
           {this.props.option != null  ? this.props.option.map((option,index)=>{
-            return <option key={option}>{option}</option>
+            return <option key={option} value={option}>{option}</option>
           }) : ""}
         </select>
       </div>

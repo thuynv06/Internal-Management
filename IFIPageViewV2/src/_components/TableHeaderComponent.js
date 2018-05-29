@@ -121,6 +121,7 @@ export default class TableHeaderComponent extends React.Component {
                     </i>:''}
              
             </th>
+            
 
 
 

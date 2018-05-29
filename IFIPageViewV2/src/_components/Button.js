@@ -13,14 +13,16 @@ class Button extends Component {
   onClick(){
     if(this.props.onCick){
       this.props.onClick();
+      console.log('clicked');
+    }else{
+      console.log('kakaka');
     }
   }
   render() {
     const{type,btn,children} = this.props;
     return (
       <div>
-      <button className={"btn btn-"+this.props.btn} type={type} onClick={this.onClick}
-        >{this.props.children}</button>
+      <button className={"btn btn-"+this.props.btn} type={type} onClick={this.onClick}>{this.props.children}</button>
 
       </div>
     );

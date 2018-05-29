@@ -6,21 +6,25 @@ import BlockDashboard from '../_components/BlockDashboardNotificationComponent';
 import styles from './css/pages.css';
 import TableComponent from '../_components/TableComponent/TableComponent';
 import users from './data.json';
+import convertData from '../_convertData/convertData.js';
 export default class Home extends React.Component{
 
     constructor(props){
-        super(props);
         super(props);
         this.state = {
             users: [],
             renderedUsers: [],
             page: 1,
+            sizePerPage:10,
+            rows:[]
         };
+        
         this.handlePageChange = this.handlePageChange.bind(this);
+        
     }
 
-    handlePageChange(page) {
-        const renderedUsers = this.state.users.slice((page - 1) * 8, (page - 1) * 8 + 8);
+    handlePageChange(page,_dataTable) {
+        const renderedUsers = this.state.users.slice((page - 1) * this.state.sizePerPage, (page - 1) * this.state.sizePerPage + this.state.sizePerPage);
         // in a real app you could query the specific page from a server user list
         this.setState({ page, renderedUsers });
     }
@@ -28,40 +32,14 @@ export default class Home extends React.Component{
     componentDidMount() {
         // In a real app we make an http request
         setTimeout(() => {
-            this.setState({ users, renderedUsers: users.slice(0, 8), total: users.length });
+            this.setState({ users, renderedUsers: users.slice(0, this.state.sizePerPage), total: users.length });
         })
+        this.setState({
+            users: this.props.tableData
+        });
     }
 
-    // // Lấy ra tiêu đề các cột
-    //  getHeader(json) {
-    //     var columns = [];
-    //     if(json!==null){
-    //       for(var header in json[0]){
-    //         columns.push(header);
-    //       }
-    //       return columns;
-    //     }
-    //   }
     
-    // // Lấy ra tiêu đề các cột
-    //  filterCol(json,...arrIndex) {
-    //     var columns = [];
-        
-    //   }
-    
-    // Convert về dạng đích
-       convertData(json, ArrayHeader, ArrayColumn) {
-        const tableData = {
-          headerCol : [...ArrayHeader],
-          columns:Object.keys(json[0]).filter(function (item){return !ArrayColumn.includes(item)}),
-          rows:Object.values(json)
-        }
-        console.log(tableData.columns);
-        console.log(tableData.rows)
-        return tableData;
-
-
-      }
     render(){
         const { page, total, renderedUsers } = this.state;
         // // Example Data
@@ -89,18 +67,18 @@ export default class Home extends React.Component{
         //     'Units Requested': 12
         //     }, {
         //     'Service': 'Veterinary Assitance',
-        //     'Cost/Unit': 50,
-        //     'Unit': '1 Hour',
-        //     'Units Requested': 12
-        //     }, {
-        //     'Service': 'Veterinary Assitance',
-        //     'Cost/Unit': 50,
-        //     'Unit': '1 Hour',
-        //     'Units Requested': 12
-        //     }, {
-        //     'Service': 'Veterinary Assitance',
-        //     'Cost/Unit': 50,
-        //     'Unit': '1 Hour',
+        //     'Cost/Unit': 50,dataRows.map(function(row,index){
+        //     'Unit': '1 Hour',dataRows.map(function(row,index){
+        //     'Units Requested'dataRows.map(function(row,index){: 12
+        //     }, {dataRows.map(function(row,index){
+        //     'Service': 'VeterdataRows.map(function(row,index){inary Assitance',
+        //     'Cost/Unit': 50,dataRows.map(function(row,index){
+        //     'Unit': '1 Hour',dataRows.map(function(row,index){
+        //     'Units Requested'dataRows.map(function(row,index){: 12
+        //     }, {dataRows.map(function(row,index){
+        //     'Service': 'VeterdataRows.map(function(row,index){inary Assitance',
+        //     'Cost/Unit': 50,dataRows.map(function(row,index){
+        //     'Unit': '1 Hour',dataRows.map(function(row,index){
         //     'Units Requested': 12
         //     }, {
         //     'Service': 'Veterinary Assitance',
@@ -171,7 +149,7 @@ export default class Home extends React.Component{
                             </li>)
                         }
                         </ul> */}
-                        <TableComponent data = {this.convertData(users,["CREATE AT","NAME","AVATAR"],['id'])} idTable="table1"/>
+                        <TableComponent data = {convertData(users,["Created At","NAME","AVATAR"],[])} isCrud={true} idTable="table1"/>
 
 
                     </div>

@@ -35,6 +35,17 @@
 
 
 /* Nguyên */
+
+  .style_icon{
+    margin-left: 10px;
+  }
+  .styleDateTime{
+    width: 150px;
+    height: 50px;
+    margin-left: 10px;
+  }
+
+
   .block_dashboard{
     margin-bottom: 80px;
     border:2px solid #ff9900;
@@ -71,6 +82,9 @@
   #pagination_container {
     display: flex;
     justify-content: center;
+    width: 50%;
+    float: right;
+    margin-bottom: 50px;
     }
 
     #pagination {
@@ -130,3 +144,4 @@
     .style_icon{
       margin-left: 10px;
     }
+

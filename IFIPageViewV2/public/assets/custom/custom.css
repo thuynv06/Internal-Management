@@ -4356,4 +4356,14 @@ float:left;
 	color:#6600ff;
 }
   
-
+.brief-text{
+	white-space: nowrap; 
+    width: 100px; 
+    overflow: hidden;
+	text-overflow:ellipsis;
+	text-align: initial;
+}
+.brief-text:hover{
+	overflow: visible;
+	white-space: pre-line;
+}
