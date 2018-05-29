@@ -16,12 +16,11 @@ class Button extends Component {
     }
   }
   render() {
-    const{type,fontsize,width,height,color,background,borderRadius,children} = this.props;
+    const{type,btn,children} = this.props;
     return (
       <div>
-      <input type={type} onClick={this.onClick}
-        style={{ fontSize: fontsize, width: width, height:height,color:color,background:background,
-                  borderRadius:borderRadius, border:'none'}} value={children}/>
+      <button className={"btn btn-"+this.props.btn} type={type} onClick={this.onClick}
+        >{this.props.children}</button>
 
       </div>
     );
@@ -33,22 +32,21 @@ Button.propTypes = {
     'reset',
     'button'
   ]).isRequired,
-  background:PropTypes.string,
-  color:PropTypes.string,
-  width:PropTypes.string,
-  height:PropTypes.string,
-  borderRadius:PropTypes.string,
-  fontSize:PropTypes.string,
+  btn:PropTypes.oneOf([
+    'primary',
+    'info',
+    'success',
+    'warning',
+    'danger',
+    'default',
+    'link',
+    'btn'
+  ]),
   onClick: PropTypes.func,
 }
 
 Button.defaultProps={
-  type:'',
-  background:'#56aaff',
-  color:'white',
-  width:'',
-  height:'',
-  borderRadius:'',
-  fontSize:''
+  type:''
+
 }
 export default Button;

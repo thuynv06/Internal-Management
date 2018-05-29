@@ -9,13 +9,19 @@
   .field_input input{
     width: 250px;
     height: 32px;
-
     background: #fcfcfc;
-    border: 1px solid #aaa;
+    /* border: 1px solid #aaa; */
     border-radius: 5px;
     box-shadow: 0 0 3px #ccc, 0 10px 15px #ebebeb inset;
-    text-indent: 32px;
+
     color: black;
+  }
+
+  .text_indent{
+    text-indent: 32px;
+  }
+  .text_none{
+    text-indent: 10px;
   }
   .field_input .fa_icon {
     position: absolute;
@@ -58,3 +64,69 @@
     -webkit-transition: opacity 1s; /* Safari */
     transition: opacity 1s;
   }
+
+
+
+
+  #pagination_container {
+    display: flex;
+    justify-content: center;
+    }
+
+    #pagination {
+    display: flex;
+    color: #505050;
+    }
+
+    #pagination_list {
+    display: flex;
+    list-style: none;
+    margin: 0 0 0 10px;
+    padding: 0;
+    }
+
+    .pagination_button {
+    display: flex;
+    height: 50px;
+    width: 50px;
+    border: 1px solid #777;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    }
+
+    .pagination_list_item {
+    margin-right: 10px;
+    }
+
+    .pagination_list_item.active {
+    background: #505050;
+    color: white;
+    }
+
+    .pagination_go_first {
+    margin-right: 40px;
+    position: relative;
+    margin-left: 10px;
+    }
+
+    .pagination_go_first:before {
+    position: absolute;
+    content: '...';
+    right: -33px;
+    }
+
+    .pagination_go_last {
+    margin-left: 40px;
+    position: relative;
+    margin-right: 10px;
+    }
+
+    .pagination_go_last:before {
+    position: absolute;
+    content: '...';
+    left: -33px;
+    }
+    .style_icon{
+      margin-left: 10px;
+    }

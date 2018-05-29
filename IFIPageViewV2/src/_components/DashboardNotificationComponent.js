@@ -21,11 +21,11 @@ class DashboardNotificationComponent extends React.Component{
           <div className={'panel panel-'+this.props.color +' '+styles.panel}>
             <div className={"panel-heading "+styles.panel}>
               <div className="row">
-                <div className="col-xs-3">
+                <div className="col-lg-3 col-md-3 col-xs-3">
                   <i className="fa fa-bell" style={{fontSize:'35px' ,color:'tomato'}}></i>
                 </div>
 
-                <div className="col-xs-9 text-right">
+                <div className="col-lg-9 col-md-9 col-xs-9 text-right">
                   <div className="huge">
                     26
                   </div>

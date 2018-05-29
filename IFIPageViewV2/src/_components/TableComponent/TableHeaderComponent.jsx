@@ -1,19 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import styles from './css/component.css';
 
 
-export default class TableHeaderComponent extends React.Component {
-    constructor(props) {
+export default class HeaderComponent extends React.Component{
+
+    constructor(props){
         super(props);
-        this.state = {};
-        // this.onChange=this.onChange.bind(this);
         this.handleColumnClick = this.handleColumnClick.bind(this);
-       this.colindex = this.props.colindex;
+        this.colIndex = this.props.colIndex;
         this.idTable = this.props.idTable;
         this.icon = true;
     }
-    
+
 
     handleColumnClick = (e) => {
         this.icon = !this.icon;
@@ -81,85 +78,21 @@ export default class TableHeaderComponent extends React.Component {
         
         this.forceUpdate();
     }
-
-
-
-    componentDidMount() {
-
-    }
-
-    render() {
-        const {
-            dataSort,
-            onSort,
-            sort,
-            isOnlyHead,
-            dataField,
-            fontsize,
-            width,
-            height,
-            color,
-            background,
-            border,
-            check,icon } = this.props;
-
-
-        return (
-
-            
-
-            <th
-                data-is-only-head={this.props.isOnlyHead}
-                colindex={this.colindex}
-                style={{
-                    fontSize: fontsize, width: width, height: height, color: color, background: background,
-                    border: border
-                }}>  {this.props.children}
-                    {check ?<i className={styles.style_icon}>
-                    
+    render(){
+        const dataColumns = this.props.data.headerCol;
+        const { check,icon } = this.props;
+        return(
+            <thead>
+                <tr>
+                    {dataColumns.map(function(column,index){
+                        return (<th colIndex={''+(index+1)}>
+                            {column}
+                            {check ?<i>
                     <span onClick={this.handleColumnClick} className={!this.icon ? "fa fa-sort-asc" : "fa fa-sort-desc"}></span>
-                    </i>:''}
-             
-            </th>
-
-
-
-        );
+                    </i>:''}</th>);
+                    })}
+                </tr>
+            </thead>
+        )
     }
-
 }
-TableHeaderComponent.propTypes = {
-    type: PropTypes.oneOf([
-        'text',
-       
-
-    ]).isRequired,
-    onSort: PropTypes.func,
-    dataField: PropTypes.string,
-    background: PropTypes.string,
-    color: PropTypes.string,
-    width: PropTypes.string,
-    height: PropTypes.string,
-    dataSort: PropTypes.bool,
-    fontSize: PropTypes.string,
-    border: PropTypes.string,
-    defaultValue: PropTypes.string,
-    colindex: PropTypes.string,
-    check:PropTypes.bool,
-    icon: PropTypes.bool,
-
-}
-TableHeaderComponent.defaultProps = {
-    onSort: undefined,
-    type: 'text',
-    background: 'blue',
-    color: 'white',
-    width: '',
-    height: '',
-    dataSort: false,
-    border: '',
-    defaultValue: '',
-    sort: undefined,
-  //  colindex:'0',
-    check:false
-};

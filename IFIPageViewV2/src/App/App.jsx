@@ -55,6 +55,7 @@ class App extends React.Component {
     });
     constructor(props){
 
+        history.push("/");
 
 
         super(props);this.state = {

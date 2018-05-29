@@ -28,11 +28,18 @@ export default class InputComponent extends React.Component{
       }
 
       render() {
+        const textIcon = "textIndent: 32px";
+        const textNon = "textIndent: 10px";
         return (
           <div className={styles.field_input}>
+          {
+            this.props.icon && 
             <span icon={this.props.fa_icon} className={this.props.icon} style={styles_custom.icon_custom}></span>
+          }
+            
             <input
-
+              className={this.props.icon ? styles.text_indent : styles.text_none}
+              name={this.props.name}
               type={this.props.type}
               value={this.state.value}
                onChange={this.onChange}
@@ -86,5 +93,5 @@ InputComponent.propTypes = {
     defaultValue: '',
     placeholder: '',
     style: null,
-    fa_icon: 'fa fa-user'
+    fa_icon: ''
   };
