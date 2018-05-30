@@ -85,7 +85,7 @@ export default class HeaderComponent extends React.Component{
             <thead>
                 <tr>
                     {dataColumns.filter(p => p !=='id').map(function(column,index){
-                        return (<th  key={index}>
+                        return (<th  key={index}  idTable="tableLeave" colIndex={''+(index+1)}>
                             {column}
                             {check ?<i>
                     <span onClick={this.handleColumnClick} className={!this.icon ? "fa fa-sort-asc" : "fa fa-sort-desc"}></span>

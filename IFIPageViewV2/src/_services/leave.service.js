@@ -6,15 +6,13 @@ export const leaveService = {
     getLeaveByPage
 };
 
-function getLeaveByPage(page, pageSize, sorted, status){
+function getLeaveByPage(){
     const requestOptions = {
         method: "GET",
-        headers: authHeader()
+        // headers: authHeader()
     };
-    let url = systemConstants.API_URL+"/private/overtime/getOvertimesByPage?page="+page+"&pageSize="+pageSize+"&status="+status;
-    if(sorted && sorted.id && sorted.desc){
-        url+="&sortedColumn="+sorted.id+"&desc="+sorted.desc;
-    }
+    let url = "https://5b0d22408126c90014997580.mockapi.io/data";
+    
     return fetch(url,requestOptions).then(handleResponse);
 
 }

@@ -9,8 +9,8 @@ export function leaves(state = {},action){
         case leaveConstants.GETALL_SUCCESS:
             return{
                 loading: false,
-                leaveList: action.leaveBean.overtimeList,
-                pages: action.leaveBean.pages
+                leaveList: action.leaveBean
+                // pages: action.leaveBean.pages
             }
         case leaveConstants.GETALL_FAILURE:
             return{

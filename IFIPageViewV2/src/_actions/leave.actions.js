@@ -5,10 +5,10 @@ export const leaveActions = {
     getLeaveByPage
 };
 
-function getLeaveByPage(page, pageSize, sorted, status){
+function getLeaveByPage(){
     return dispatch => {
         dispatch(request());
-        leaveService.getLeaveByPage(page, pageSize, sorted, status).then(
+        leaveService.getLeaveByPage().then(
             leaveBean => dispatch(success(leaveBean)),
             error => dispatch(failure(error))
         );

@@ -15,7 +15,7 @@ import SelectListComponent from '../_components/SelectListComponent';
 
 import { leaveActions } from '../_actions/leave.actions.js';
 
-export default class Home extends React.Component{
+class Home extends React.Component{
     
     constructor(props){
         super(props);
@@ -38,19 +38,16 @@ export default class Home extends React.Component{
         this.fetchData();
         // In a real app we make an http request
         setTimeout(() => {
-            this.setState({ users, renderedUsers: users.slice(0, this.state.sizePerPage), total: users.length });
+            this.setState({ users, renderedUsers: users.slice(0, this.state.sizePerPage), total: this.props.leaveList.length });
         })
         this.setState({
             users: this.props.tableData
         });
     }
 
-    fetchData(page, pageSize, status){
-        if(status == undefined) status = this.state.status;
-        if(page == undefined) page = this.state.page;
-        if(pageSize == undefined) pageSize = this.state.sizePerPage;
+    fetchData(){
 
-        this.props.dispatch(leaveActions.getLeaveByPage(page,pageSize,this.state.sorted,0));
+        this.props.dispatch(leaveActions.getLeaveByPage());
 
     }
 
@@ -101,9 +98,28 @@ export default class Home extends React.Component{
                         {/* <TableComponent data = {tableData} idTable="table1" isCrud={true}/> */}
 
                         <div>
-                            {leaveList && leaveList.map((ov,item)=>{
-                                <div>{ov.projectId}</div>
-                            })}
+                            
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Created</th>
+                                        <th>Name</th>
+                                        <th>Avatar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {leaveList && leaveList.map((ov,item) => 
+                                        <tr key={item}>
+                                            <td>{ov.id}</td>
+                                            <td>{ov.createdAt}</td>
+                                            <td>{ov.name}</td>
+                                            <td>{ov.avatar}</td>
+                                        </tr>
+                                    )}
+                                </tbody>
+                                
+                            </table>
                             <Pagination
                             margin={2}
                             page={page}

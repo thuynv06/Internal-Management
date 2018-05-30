@@ -28,6 +28,16 @@
     top: 10px;
     left: 10px;
   }
+
+  .style_icon{
+    margin-left: 10px;
+  }
+  .styleDateTime{
+    width: 150px;
+    height: 50px;
+    margin-left: 10px;
+  }
+
   .block_dashboard{
     margin-bottom: 80px;
   }
@@ -100,3 +110,4 @@
     .style_icon{
       margin-left: 10px;
     }
+
