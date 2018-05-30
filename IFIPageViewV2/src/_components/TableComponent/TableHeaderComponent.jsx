@@ -80,12 +80,13 @@ export default class HeaderComponent extends React.Component{
     }
     render(){
         const dataColumns = this.props.data.headerCol;
-        const { check,icon,isCrud=false } = this.props;
+        const { check,icon } = this.props;
+        const {isCrud}=this.props;
         return(
             <thead>
                 <tr>
                     {dataColumns.filter(p => p !=='id').map(function(column,index){
-                        return (<th  key={index}  idTable="tableLeave" colIndex={''+(index+1)}>
+                        return (<th  key={index}>
                             {column}
                             {check ?<i>
                     <span onClick={this.handleColumnClick} className={!this.icon ? "fa fa-sort-asc" : "fa fa-sort-desc"}></span>

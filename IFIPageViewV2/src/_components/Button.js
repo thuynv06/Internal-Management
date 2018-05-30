@@ -7,22 +7,22 @@ class Button extends Component {
   constructor(props){
       super(props);
       this.state = {};
-      //  this.onClick = this.onClick.bind(this);
+      this.onClick = this.onClick.bind(this);
   }
 
   onClick(){
     if(this.props.onCick){
       this.props.onClick();
       console.log('clicked');
+    }else{
+      console.log('kakaka');
     }
   }
   render() {
-    const{type,fontsize,width,height,color,background,borderRadius,children} = this.props;
+    const{type,btn,children} = this.props;
     return (
       <div>
-      <button type={type}
-        style={{ fontSize: fontsize, width: width, height:height,color:color,background:background,
-                  borderRadius:borderRadius, border:'none'}} onClick={this.props.onClick}>{children}</button>
+      <button type={type} onClick={this.props.onClick}>{children}</button>
 
       </div>
     );
@@ -34,22 +34,21 @@ Button.propTypes = {
     'reset',
     'button'
   ]).isRequired,
-  background:PropTypes.string,
-  color:PropTypes.string,
-  width:PropTypes.string,
-  height:PropTypes.string,
-  borderRadius:PropTypes.string,
-  fontSize:PropTypes.string,
+  btn:PropTypes.oneOf([
+    'primary',
+    'info',
+    'success',
+    'warning',
+    'danger',
+    'default',
+    'link',
+    'btn'
+  ]),
   onClick: PropTypes.func,
 }
 
 Button.defaultProps={
-  type:'button',
-  background:'#56aaff',
-  color:'white',
-  width:'',
-  height:'',
-  borderRadius:'',
-  fontSize:''
+  type:''
+
 }
 export default Button;

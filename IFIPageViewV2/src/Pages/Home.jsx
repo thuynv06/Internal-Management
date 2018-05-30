@@ -5,20 +5,20 @@ import Header from '../TemplatePage/Header';
 import { Router, Route } from 'react-router';
 import BlockDashboard from '../_components/BlockDashboardNotificationComponent';
 import styles from './css/pages.css';
-import InputComponent from '../_components/InputComponent';
-import users from '../fakedata/mock.json';
-import Pagination from '../_components/PaginationComponent';
 import TableComponent from '../_components/TableComponent/TableComponent';
 import HeaderComponet from '../_components/TableComponent/TableHeaderComponent';
 import BodyComponent from '../_components/TableComponent/TableBodyComponent';
 import SelectListComponent from '../_components/SelectListComponent';
+import Pagination from '../_components/PaginationComponentGoogle';
 
 import { leaveActions } from '../_actions/leave.actions.js';
+import convertData from '../_convertData/convertData.js';
 
 class Home extends React.Component{
     
     constructor(props){
         super(props);
+        var exampleItems = [...Array(150).keys()].map(i => ({ id: (i+1), name: 'Item ' + (i+1) }));
         this.state = {
             users: [],
             renderedUsers: [],
@@ -28,18 +28,27 @@ class Home extends React.Component{
             sizePerPage:10,
             status:0,
             rows:[],
+            exampleItems: exampleItems,
+            pageOfItems: []
         };
+
+        
+
+        // this.state = {
+            
+        //     pageOfItems: []
+        // };
         
         this.handlePageChange = this.handlePageChange.bind(this);
-        this.changePerPage = this.changePerPage.bind(this);
+        
     }
 
     componentDidMount() {
         this.fetchData();
         // In a real app we make an http request
-        setTimeout(() => {
-            this.setState({ users, renderedUsers: users.slice(0, this.state.sizePerPage), total: this.props.leaveList.length });
-        })
+        // setTimeout(() => {
+        //     this.setState({ users, renderedUsers: users.slice(0, this.state.sizePerPage), total: this.props.leaveList.length });
+        // })
         this.setState({
             users: this.props.tableData
         });
@@ -69,6 +78,7 @@ class Home extends React.Component{
         console.log(Number(e.target.value));
     }
 
+    
     render(){
         const {leaveList,pages,loading}  = this.props;
         const { page, total, renderedUsers} = this.state;
@@ -83,49 +93,29 @@ class Home extends React.Component{
         
             
         const selectData = [10,20,30];
+        // const myObj = JSON.parse(leaveList);
 
+
+        <div className={styles.dashboad}>
+                            <BlockDashboard text="Leave"/>
+                        </div>
         return(
-            
+
             <div>
                 <NavBar/>
                 <Header/>
-                    
                     <div className="right_col" role="main">
                         <div className={styles.dashboad}>
-                            {/* <BlockDashboard text="Leave"/>
-                            <BlockDashboard text="Overtime"/> */}
+                            <BlockDashboard text="Leave"/>
+                            <BlockDashboard text="Overtime"/>
                         </div>
                         {/* <TableComponent data = {tableData} idTable="table1" isCrud={true}/> */}
 
                         <div>
-                            
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Created</th>
-                                        <th>Name</th>
-                                        <th>Avatar</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {leaveList && leaveList.map((ov,item) => 
-                                        <tr key={item}>
-                                            <td>{ov.id}</td>
-                                            <td>{ov.createdAt}</td>
-                                            <td>{ov.name}</td>
-                                            <td>{ov.avatar}</td>
-                                        </tr>
-                                    )}
-                                </tbody>
-                                
-                            </table>
-                            <Pagination
-                            margin={2}
-                            page={page}
-                            count={Math.ceil(total / this.state.sizePerPage)}
-                            onChange={this.handlePageChange}
-                            />
+                            {console.log(leaveList)}
+                            {leaveList &&
+                            <TableComponent data = {convertData(leaveList,["Created At","NAME","AVATAR"],[])} isCrud={true}/>}
+                            <Pagination items={this.state.exampleItems}/>
                             <SelectListComponent option={selectData} onChange={this.changePerPage}/>
                         </div>
                     </div>

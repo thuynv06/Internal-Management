@@ -8,7 +8,7 @@ export default class TableComponent extends React.Component{
         const data = this.props.data;
         const isCrud= this.props;
         return(
-            <table className="table table-bordered table-hover" id="tableLeave">
+            <table className="table table-bordered table-hover">
                 <TableHeader data={this.props.data} isCrud={this.props.isCrud}/>
                 <TableBody data={this.props.data} isCrud={this.props.isCrud}/>
             </table>

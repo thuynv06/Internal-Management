@@ -21,7 +21,7 @@ export default class TableBody extends React.Component{
     render(){
         const dataRows = this.props.data.rows;
         const dataColumns = this.props.data.columns;
-        const {isCrud} = this.props;
+        const {isCrud}=this.props;
         return(
             
             <tbody>
@@ -33,13 +33,13 @@ export default class TableBody extends React.Component{
                                 return <td key={index}><div className="brief-text">{row[column]}</div></td>;
                             })}
                             {isCrud &&
-                                  <td><Button onClick={() =>this.handleClickRow(row[dataColumns[0]])}>Edit</Button>
+                                  <td><Button type="button" onClick={this.props.onClick}>Edit</Button>
                                  {/* <td>
                                      <Button type="button" onClick={() =>this.handleClickRow(row[dataColumns[0]])}>Edit</Button> */}
                                 </td>
                             }
                             {isCrud &&
-                                <td><Button type="submit" onClick={this.delete}>Delete</Button></td>
+                                <td><Button type="button" btn="success"  type="submit" onClick={this.props.onClick}>Delete</Button></td>
                             }
                         </tr>);
                 }.bind(this))}
