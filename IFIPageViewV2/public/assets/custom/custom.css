@@ -4367,3 +4367,8 @@ float:left;
 	overflow: visible;
 	white-space: pre-line;
 }
+
+.pagination{
+    cursor: pointer;
+    float: right;
+  }

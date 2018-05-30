@@ -85,7 +85,7 @@ export default class HeaderComponent extends React.Component{
         return(
             <thead>
                 <tr>
-                    {dataColumns.filter(p => p !=='id').map(function(column,index){
+                    {dataColumns && dataColumns.map(function(column,index){
                         return (<th  key={index}>
                             {column}
                             {check ?<i>

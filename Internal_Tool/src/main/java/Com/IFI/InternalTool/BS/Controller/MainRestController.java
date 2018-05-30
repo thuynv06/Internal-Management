@@ -22,8 +22,11 @@ import Com.IFI.InternalTool.DS.Model.Vacation;
 import Com.IFI.InternalTool.DS.Model.Vacation_Approved;
 import Com.IFI.InternalTool.DS.Model.Vacation_Type;
 import Com.IFI.InternalTool.DS.Model.SearchModel.VacationSearch;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @RestController
+@RequestMapping("/private/vacation")
+@CrossOrigin(origins = "http://localhost:3000")
 public class MainRestController {
 	@Autowired
 	EmployeeService employeeService;

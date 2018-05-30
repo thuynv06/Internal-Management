@@ -1,13 +1,9 @@
 // Convert về dạng đích
- export default function convertData(json, ArrayHeader, ArrayColumn) {
+ export default function convertData(data, ArrayHeader, ArrayColumn) {
     const tableData = {
       headerCol : [...ArrayHeader],
-      columns:Object.keys(json[0]).filter(function (item){return !ArrayColumn.includes(item)}),
-      rows:Object.values(json)
+      columns:Object.keys(data[0]).filter(function (item){return !ArrayColumn.includes(item)}),
+      rows:Object.values(data)
     }
-    console.log(tableData.columns);
-    console.log(tableData.rows);
     return tableData;
-
-
   }

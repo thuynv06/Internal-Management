@@ -1,20 +1,13 @@
 import React from 'react';
+import './css/component.css';
+import SelectListComponent from './SelectListComponent';
 
-
-const propTypes = {
-    items: React.PropTypes.array.isRequired,
-    onChangePage: React.PropTypes.func.isRequired,
-    initialPage: React.PropTypes.number    
-}
-
-const defaultProps = {
-    initialPage: 1
-}
 
 export default class Pagination extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { pager: {} };
+        this.state = { pager: {},selectData:[10,20,30],sizePerPage: 10 };
+        this.changePageSize = this.changePageSize.bind(this);
     }
 
     componentWillMount() {
@@ -34,6 +27,7 @@ export default class Pagination extends React.Component {
     setPage(page) {
         var items = this.props.items;
         var pager = this.state.pager;
+        
 
         if (page < 1 || page > pager.totalPages) {
             return;
@@ -101,6 +95,21 @@ export default class Pagination extends React.Component {
             pages: pages
         };
     }
+    changePageSize(e){
+        var items = this.props.items;
+        var pager = this.state.pager;
+        // get new pager object for specified page
+        pager = this.getPager(items.length, 1 ,e.target.value);
+        // get new page of items from items array
+        var pageOfItems = items.slice(pager.startIndex, pager.endIndex + 1);
+
+        this.setState({
+            pager: pager
+        });
+        // call change page function in parent component
+        this.props.onChangePage(pageOfItems);
+        
+    }
 
     render() {
         var pager = this.state.pager;
@@ -111,12 +120,13 @@ export default class Pagination extends React.Component {
         }
 
         return (
+            <div>
             <ul className="pagination">
                 <li className={pager.currentPage === 1 ? 'disabled' : ''}>
-                    <a onClick={() => this.setPage(1)}>First</a>
+                    <a onClick={() => this.setPage(1)}>&lt;&lt;</a>
                 </li>
                 <li className={pager.currentPage === 1 ? 'disabled' : ''}>
-                    <a onClick={() => this.setPage(pager.currentPage - 1)}>Previous</a>
+                    <a onClick={() => this.setPage(pager.currentPage - 1)}>&lt;</a>
                 </li>
                 {pager.pages.map((page, index) =>
                     <li key={index} className={pager.currentPage === page ? 'active' : ''}>
@@ -124,15 +134,15 @@ export default class Pagination extends React.Component {
                     </li>
                 )}
                 <li className={pager.currentPage === pager.totalPages ? 'disabled' : ''}>
-                    <a onClick={() => this.setPage(pager.currentPage + 1)}>Next</a>
+                    <a onClick={() => this.setPage(pager.currentPage + 1)}>&gt;</a>
                 </li>
                 <li className={pager.currentPage === pager.totalPages ? 'disabled' : ''}>
-                    <a onClick={() => this.setPage(pager.totalPages)}>Last</a>
+                    <a onClick={() => this.setPage(pager.totalPages)}>&gt;&gt;</a>
                 </li>
             </ul>
+
+            <SelectListComponent option={this.state.selectData} onChange={this.changePageSize}/>
+            </div>
         );
     }
 }
-
-Pagination.propTypes = propTypes;
-Pagination.defaultProps = defaultProps;

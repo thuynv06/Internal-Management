@@ -18,7 +18,7 @@ class Home extends React.Component{
     
     constructor(props){
         super(props);
-        var exampleItems = [...Array(150).keys()].map(i => ({ id: (i+1), name: 'Item ' + (i+1) }));
+        
         this.state = {
             users: [],
             renderedUsers: [],
@@ -28,7 +28,7 @@ class Home extends React.Component{
             sizePerPage:10,
             status:0,
             rows:[],
-            exampleItems: exampleItems,
+            
             pageOfItems: []
         };
 
@@ -40,6 +40,8 @@ class Home extends React.Component{
         // };
         
         this.handlePageChange = this.handlePageChange.bind(this);
+        this.onChangePage = this.onChangePage.bind(this);
+        this.changePerPage = this.changePerPage.bind(this);
         
     }
 
@@ -78,22 +80,20 @@ class Home extends React.Component{
         console.log(Number(e.target.value));
     }
 
+    onChangePage(pageOfItems) {
+        // update state with new page of items
+        this.setState({ pageOfItems: pageOfItems });
+        console.log(pageOfItems);
+    }
+
     
     render(){
         const {leaveList,pages,loading}  = this.props;
-        const { page, total, renderedUsers} = this.state;
-        // // Example Data
-        // const tableData = {
-        //     headerCol: ["Project","From Date", "To Date", "Status","Type","Description","User Approved","User Next Approved"],
-        //     columns: Object.keys(leaveList[0]),
-        //     rows: []
-        // };
-        // for(var i = 0 ; i<leaveList.length ; i++)
-        //     tableData.rows.push(leaveList[i]);
+        const { page, total, renderedUsers,pageOfItems} = this.state;
+
         
             
         const selectData = [10,20,30];
-        // const myObj = JSON.parse(leaveList);
 
 
         <div className={styles.dashboad}>
@@ -106,17 +106,18 @@ class Home extends React.Component{
                 <Header/>
                     <div className="right_col" role="main">
                         <div className={styles.dashboad}>
-                            <BlockDashboard text="Leave"/>
-                            <BlockDashboard text="Overtime"/>
+                            {/* <BlockDashboard text="Leave"/>
+                            <BlockDashboard text="Overtime"/> */}
                         </div>
                         {/* <TableComponent data = {tableData} idTable="table1" isCrud={true}/> */}
 
                         <div>
-                            {console.log(leaveList)}
-                            {leaveList &&
-                            <TableComponent data = {convertData(leaveList,["Created At","NAME","AVATAR"],[])} isCrud={true}/>}
-                            <Pagination items={this.state.exampleItems}/>
-                            <SelectListComponent option={selectData} onChange={this.changePerPage}/>
+                            {pageOfItems.length != 0 ? console.log(pageOfItems) : console.log('huhu')}
+                            {pageOfItems.length != 0 ?
+                            <TableComponent data = {convertData(pageOfItems,["Created At","NAME","AVATAR"],[])} isCrud={true}/> : null}
+                            
+                            <Pagination items={leaveList} onChangePage={this.onChangePage}/>
+                            
                         </div>
                     </div>
             </div>
