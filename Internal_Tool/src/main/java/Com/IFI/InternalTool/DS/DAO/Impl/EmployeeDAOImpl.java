@@ -55,17 +55,20 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 		return employee.getEmployee_id();
 	}
 	@Override
-	public Long deleteEmployee(long employee_id) {
+	public Boolean deleteEmployee(long employee_id) {
 		Session session = entityManagerFactory.unwrap(SessionFactory.class).openSession();
 		Transaction tx = null;
 		tx=session.beginTransaction();
 		String hql = "Delete from Employee where employee_id=:employee_id";
 		Query query = session.createQuery(hql);
 		query.setParameter("employee_id", employee_id);
-		query.executeUpdate();
+		int row=query.executeUpdate();
 		tx.commit();
 		session.close();
-		return employee_id;
+		if(row==0) {
+			return false;
+		}
+		else return true;
 	}
 	@Override
 	public Employee getEmployeeById(long employee_id) {

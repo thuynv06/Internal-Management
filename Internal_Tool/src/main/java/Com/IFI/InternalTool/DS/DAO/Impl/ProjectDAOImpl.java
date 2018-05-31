@@ -42,17 +42,20 @@ public class ProjectDAOImpl implements ProjectDAO {
 	}
 
 	@Override
-	public boolean deleteProject(long project_id) {
+	public Boolean deleteProject(long project_id) {
 		Session session = entityManagerFactory.unwrap(SessionFactory.class).openSession();
 		Transaction tx = null;
 		tx=session.beginTransaction();
 		String hql = "Delete from Project where project_id=:project_id";
 		Query query = session.createQuery(hql);
 		query.setParameter("project_id", project_id);
-		query.executeUpdate();
+		int row=query.executeUpdate();
 		tx.commit();
 		session.close();
-		return true;
+		if(row==0) {
+			return false;
+		}
+		else return true;
 	}
 
 	@Override

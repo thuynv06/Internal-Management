@@ -9,6 +9,7 @@ import Com.IFI.InternalTool.BS.Service.VacationService;
 import Com.IFI.InternalTool.DS.DAO.VacationDAO;
 import Com.IFI.InternalTool.DS.Model.Vacation;
 import Com.IFI.InternalTool.DS.Model.Vacation_Approved;
+import Com.IFI.InternalTool.DS.Model.Vacation_Log;
 import Com.IFI.InternalTool.DS.Model.Vacation_Type;
 import Com.IFI.InternalTool.DS.Model.SearchModel.VacationSearch;
 @Service("VacationService")
@@ -60,5 +61,21 @@ public class VacationServiceImpl implements VacationService{
 		return vacationDAO.getAllVacationByEmp2(manager_id,page,pageSize, sortedColumn, desc);
 	
 	}
+	@Override
+	public List<Long> getManagerByVacationId(long vacation_id) {
+		return vacationDAO.getManagerByVacationId(vacation_id);
+	}
+	@Override
+	public boolean saveVacationLog(Vacation_Log vacation_log) {
+		return vacationDAO.saveVacationLog(vacation_log);
+	}
+
+	@Override
+	public Vacation_Log getVacationLogByVacationIdAndNextApproveId(long vacation_id, long next_approve_id) {
+		return vacationDAO.getVacationLogByVacationIdAndNextApproveId(vacation_id, next_approve_id);
+	
+	}
+
+
 
 }

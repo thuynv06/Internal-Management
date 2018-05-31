@@ -14,6 +14,9 @@ import Pagination from '../_components/PaginationComponentGoogle';
 import { leaveActions } from '../_actions/leave.actions.js';
 import convertData from '../_convertData/convertData.js';
 
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
+
 class Home extends React.Component{
     
     constructor(props){
@@ -85,6 +88,25 @@ class Home extends React.Component{
         this.setState({ pageOfItems: pageOfItems });
         console.log(pageOfItems);
     }
+    handleDelete(value){
+        console.log(value + " deleted");
+        const options = {
+            title: 'Delete',
+            message: 'Are you sure to delete this ',
+            buttons: [
+              {
+                label: 'Yes',
+                onClick: () => this.props.dispatch(leaveActions.deleteLeave(value))
+                
+              },
+              {
+                label: 'Cancel',
+                // onClick: () => alert('Click No')
+              }
+            ]
+          };
+          confirmAlert(options);
+    }
 
     
     render(){
@@ -114,7 +136,7 @@ class Home extends React.Component{
                         <div>
                             {pageOfItems.length != 0 ? console.log(pageOfItems) : console.log('huhu')}
                             {pageOfItems.length != 0 ?
-                            <TableComponent data = {convertData(pageOfItems,["Created At","NAME","AVATAR"],[])} isCrud={true}/> : null}
+                            <TableComponent data = {convertData(pageOfItems,["Created At","NAME","AVATAR"],[])} isCrud={true} onDelete={this.handleDelete.bind(this)}/> : null}
                             
                             <Pagination items={leaveList} onChangePage={this.onChangePage}/>
                             

@@ -17,6 +17,20 @@ export function leaves(state = {},action){
                 loading: false,
                 error: action.error
             }
+
+        case leaveConstants.DELETE_LEAVE_SUCCESS:
+            let leaveList = state.leaveList;
+            let leaveDelete = [];
+      
+            for (var i = 0 ;i < leaveList.length;i++) {
+              if(leaveList[i].id != action.id){
+                leaveDelete.push(leaveList[i]);
+              }
+            }
+            state.leaveList = leaveDelete;
+            return {
+                leaveList: leaveDelete,
+            };
         default:
             return state;
     }

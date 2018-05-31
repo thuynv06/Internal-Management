@@ -3,7 +3,8 @@ import { systemConstants } from '../_constants/system.constants.js';
 
 
 export const leaveService = {
-    getLeaveByPage
+    getLeaveByPage,
+    deleteLeave
 };
 
 function getLeaveByPage(){
@@ -15,6 +16,15 @@ function getLeaveByPage(){
     
     return fetch(url,requestOptions).then(handleResponse);
 
+}
+
+
+function deleteLeave(id){
+    const requestOptions = {
+        method: "DELETE",
+        // headers: authHeader()
+    };
+    return fetch("https://5b0d22408126c90014997580.mockapi.io/data/"+id,requestOptions).then(handleResponse);
 }
 
 

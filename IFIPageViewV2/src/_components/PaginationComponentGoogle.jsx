@@ -34,7 +34,7 @@ export default class Pagination extends React.Component {
         }
 
         // get new pager object for specified page
-        pager = this.getPager(items.length, page);
+        pager = this.getPager(items.length, page,this.state.sizePerPage);
 
         // get new page of items from items array
         var pageOfItems = items.slice(pager.startIndex, pager.endIndex + 1);
@@ -99,16 +99,18 @@ export default class Pagination extends React.Component {
         var items = this.props.items;
         var pager = this.state.pager;
         // get new pager object for specified page
-        pager = this.getPager(items.length, 1 ,e.target.value);
+        pager = this.getPager(items.length, 1 ,Number(e.target.value));
         // get new page of items from items array
-        var pageOfItems = items.slice(pager.startIndex, pager.endIndex + 1);
+        var pageOfItems =0;
+        pageOfItems = items.slice(pager.startIndex, pager.endIndex + 1);
 
         this.setState({
-            pager: pager
+            pager: pager,
+            sizePerPage: Number(e.target.value)
         });
         // call change page function in parent component
         this.props.onChangePage(pageOfItems);
-        
+
     }
 
     render() {

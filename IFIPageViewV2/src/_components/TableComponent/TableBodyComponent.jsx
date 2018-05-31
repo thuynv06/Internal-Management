@@ -1,17 +1,20 @@
 import React from 'react';
 import Button from '../Button';
 
+
 export default class TableBody extends React.Component{
     constructor(props){
         super(props);
         this.handleClickRow = this.handleClickRow.bind(this);
         this.edit = this.edit.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
     }
     edit(){
         alert("edit");
     }
-    delete(){
-        alert("delete");
+    handleDelete(id){
+        // alert("delete " + id);
+        this.props.valueDelete(id);
     }
 
     handleClickRow(data){
@@ -39,7 +42,7 @@ export default class TableBody extends React.Component{
                                 </td>
                             }
                             {isCrud &&
-                                <td><Button type="button" btn="success"  type="submit" onClick={this.props.onClick}>Delete</Button></td>
+                                <td><Button type="button" btn="success"  type="submit" onClick={() => this.handleDelete(row['id'])}>Delete</Button></td>
                             }
                         </tr>);
                 }.bind(this))}
