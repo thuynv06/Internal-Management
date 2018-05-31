@@ -27,7 +27,7 @@ public class VacationDAOImpl implements VacationDAO{
 	@Override
 	public List<Vacation> getAllVacationByEmp(long employee_id,int page, int pageSize,String sortedColumn,Boolean desc) {
 		Session session = entityManagerFactory.unwrap(SessionFactory.class).openSession();
-		String hql = "FROM Vacation where employee_id=:employee_id ";
+		String hql = "Select v FROM Vacation v INNER JOIN Employee AS e ON v.employee_id= e.employee_id INNER JOIN Project AS p ON v.project_id=p.project_id  where v.employee_id=:employee_id ";
 		if(sortedColumn != null && desc != null){
 			String order = "";
 			if(desc){
@@ -49,6 +49,29 @@ public class VacationDAOImpl implements VacationDAO{
 		session.close();
 		return list;
 	}
+	
+	// get all vacation to approve manage/leader page
+		@Override
+		public List<Vacation> getAllVacationByEmp2(long manager_id,int page, int pageSize,String sortedColumn,Boolean desc) {
+			Session session = entityManagerFactory.unwrap(SessionFactory.class).openSession();
+			String hql = "Select v FROM Vacation v INNER JOIN Employee AS e ON v.employee_id= e.employee_id INNER JOIN Project AS p ON v.project_id=p.project_id INNER JOIN Project_Manager AS pm ON (v.employee_id=pm.employee_id and v.project_id=pm.project_id  and v.status=pm.priority)  where  pm.manager_id=:manager_id ";
+			if(sortedColumn != null && desc != null){
+				String order = "";
+				if(desc){
+					order = "desc";
+				}
+				hql +="ORDER BY "+ sortedColumn + " " +  order;
+			}
+			Query query = session.createQuery(hql);
+			query.setParameter("manager_id", manager_id);
+			
+			query.setFirstResult((page-1)*pageSize);
+			query.setFetchSize(pageSize);
+			query.setMaxResults(pageSize);
+			List<Vacation> list = query.list();
+			session.close();
+			return list;
+		}
 	@Override
 	public boolean saveVacation(Vacation vacation) {
 		Session session = entityManagerFactory.unwrap(SessionFactory.class).openSession();
@@ -204,27 +227,7 @@ public class VacationDAOImpl implements VacationDAO{
 		int p=(int) query.uniqueResult();
 		return p;
 	}
-	// get all vacation to approve manage/leader page
-	@Override
-	public List<Vacation> getAllVacationByEmp2(long manager_id,int page, int pageSize,String sortedColumn,Boolean desc) {
-		Session session = entityManagerFactory.unwrap(SessionFactory.class).openSession();
-		String hql = "Select t From Vacation t INNER JOIN Project_Manager AS pm ON (t.employee_id=pm.employee_id and t.project_id=pm.project_id)  where  (pm.manager_id=:manager_id and t.status=pm.priority) ";
-		Query query = session.createQuery(hql);
-		query.setParameter("manager_id", manager_id);
-		if(sortedColumn != null && desc != null){
-			String order = "";
-			if(desc){
-				order = "desc";
-			}
-			hql +="ORDER BY "+ sortedColumn + " " +  order;
-		}
-		query.setFirstResult((page-1)*pageSize);
-		query.setFetchSize(pageSize);
-		query.setMaxResults(pageSize);
-		List<Vacation> list = query.list();
-		session.close();
-		return list;
-	}
+	
 	@Override
 	public List<Long> getManagerByVacationId(long vacation_id) {
 		Session session = entityManagerFactory.unwrap(SessionFactory.class).openSession();
