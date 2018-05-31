@@ -4,6 +4,7 @@ import java.util.List;
 
 import Com.IFI.InternalTool.DS.Model.Vacation;
 import Com.IFI.InternalTool.DS.Model.Vacation_Approved;
+import Com.IFI.InternalTool.DS.Model.Vacation_Log;
 import Com.IFI.InternalTool.DS.Model.Vacation_Type;
 import Com.IFI.InternalTool.DS.Model.SearchModel.VacationSearch;
 
@@ -19,4 +20,10 @@ public interface VacationDAO {
 		int getMaxPriority(long vacation_id);
 		int getPriority(long manager_id,long vacation_id);
 		List<Vacation> getAllVacationByEmp2(long manager_id,int page, int pageSize,String sortedColumn,Boolean desc);
+		List<Long> getManagerByVacationId(long vacation_id);
+		boolean saveVacationLog(Vacation_Log vacation_log);
+		Vacation_Log getVacationLogByVacationIdAndNextApproveId(long vacation_id,long next_approve_id);
+		List<Long> getNextApproveIdByVacationId(Long vacation_id);
+		List<Long> getApprovedIdByVacationId(Long vacation_id);
+		Long getDisApproveIdByVacationId(Long vacation_id);
 }

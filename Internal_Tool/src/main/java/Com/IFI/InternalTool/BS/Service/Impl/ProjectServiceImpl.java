@@ -24,7 +24,7 @@ public class ProjectServiceImpl implements ProjectService{
 	}
 
 	@Override
-	public boolean deleteProject(long project_id) {
+	public Boolean deleteProject(long project_id) {
 		return projectDAO.deleteProject(project_id);
 	}
 

@@ -28,7 +28,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		 return employeeDAO.saveEmployee(employee);
 	}
 	@Override
-	public Long deleteEmployee(long employee_id) {
+	public Boolean deleteEmployee(long employee_id) {
 		return employeeDAO.deleteEmployee(employee_id);
 	}
 	@Override
