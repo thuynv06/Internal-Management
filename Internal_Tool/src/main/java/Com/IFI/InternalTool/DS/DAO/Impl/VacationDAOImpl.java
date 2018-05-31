@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import Com.IFI.InternalTool.DS.DAO.VacationDAO;
-import Com.IFI.InternalTool.DS.Model.Employee;
 import Com.IFI.InternalTool.DS.Model.Vacation;
 import Com.IFI.InternalTool.DS.Model.Vacation_Approved;
 import Com.IFI.InternalTool.DS.Model.Vacation_Log;
@@ -117,6 +116,13 @@ public class VacationDAOImpl implements VacationDAO{
 		hql+="or (:from_date <= v.from_date and :to_date >= v.to_date and :from_date <= :to_date) ";
 		hql+="or (:from_date IS NULL and :to_date IS NULL)) ";
 		hql+="AND (pm.manager_id=:manager_id)";
+		if(sortedColumn != null && desc != null){
+			String order = "";
+			if(desc){
+				order = "desc";
+			}
+			hql +="ORDER BY "+ sortedColumn + " " +  order;
+		}
 		Query query = session.createQuery(hql);
 		query.setParameter("manager_id", manager_id);
 		query.setParameter("emp_name", vacationSearch.getEmp_name());
