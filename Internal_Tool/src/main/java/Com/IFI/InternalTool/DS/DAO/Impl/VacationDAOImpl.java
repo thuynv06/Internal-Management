@@ -251,6 +251,37 @@ public class VacationDAOImpl implements VacationDAO{
 		session.close();
 		return vl;
 	}
+	@Override
+	public List<Long> getNextApproveIdByVacationId(Long vacation_id) {
+		Session session = entityManagerFactory.unwrap(SessionFactory.class).openSession();
+		String hql = "Select v.next_approve_id From Vacation_Log v where vacation_id=:vacation_id";
+		Query query = session.createQuery(hql);
+		query.setParameter("vacation_id", vacation_id);
+		List<Long> list=query.list();
+		session.close();
+		return list;
+
+	}
+	@Override
+	public List<Long> getApprovedIdByVacationId(Long vacation_id) {
+		Session session = entityManagerFactory.unwrap(SessionFactory.class).openSession();
+		String hql = "Select v.approved_id From Vacation_Log v where vacation_id=:vacation_id and v.approved_id>0";
+		Query query = session.createQuery(hql);
+		query.setParameter("vacation_id", vacation_id);
+		List<Long> list=query.list();
+		session.close();
+		return list;
+	}
+	@Override
+	public Long getDisApproveIdByVacationId(Long vacation_id) {
+		Session session = entityManagerFactory.unwrap(SessionFactory.class).openSession();
+		String hql = "Select v.disapproved_id From Vacation_Log v where vacation_id=:vacation_id and v.disapproved_id>0";
+		Query query = session.createQuery(hql);
+		query.setParameter("vacation_id", vacation_id);
+		Long a=(Long) query.uniqueResult();
+		session.close();
+		return a;
+	}
 
 
 

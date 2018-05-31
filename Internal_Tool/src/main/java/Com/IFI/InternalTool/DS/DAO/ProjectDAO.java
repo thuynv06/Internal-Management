@@ -15,5 +15,4 @@ public interface ProjectDAO {
 	Project getProjectById(long project_id);
 	List<Project_Manager> getProjectManagerByEmp(long employee_id,long project_id);
 	List<Long> getProjectByEmp(long employee_id);
-	List<Project_Manager> getProjectManagerById(long manager_id);
 }

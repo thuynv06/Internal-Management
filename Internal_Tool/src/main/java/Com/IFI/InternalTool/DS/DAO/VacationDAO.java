@@ -23,4 +23,7 @@ public interface VacationDAO {
 		List<Long> getManagerByVacationId(long vacation_id);
 		boolean saveVacationLog(Vacation_Log vacation_log);
 		Vacation_Log getVacationLogByVacationIdAndNextApproveId(long vacation_id,long next_approve_id);
+		List<Long> getNextApproveIdByVacationId(Long vacation_id);
+		List<Long> getApprovedIdByVacationId(Long vacation_id);
+		Long getDisApproveIdByVacationId(Long vacation_id);
 }

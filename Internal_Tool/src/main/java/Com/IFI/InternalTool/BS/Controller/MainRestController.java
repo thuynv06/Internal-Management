@@ -322,7 +322,34 @@ public class MainRestController {
 		
 		return message;
 	}
+	//get all next approve manager/leader
+	@GetMapping("/vacations/nextApproveLog/{vacation_id}")
+	public List<Employee> getNextApproveManagerByVacationId(@PathVariable long vacation_id) {
+		List<Long> list = vacationService.getNextApproveIdByVacationId(vacation_id);
+		List<Employee> list2 = new ArrayList<>();
+		for (Long m : list) {
+			list2.add(employeeService.getEmployeeById(m));
+		}
+		return list2;
+	}
+	//get all approved manager/leader
+	@GetMapping("/vacations/approvedLog/{vacation_id}")
+	public List<Employee> getApprovedManagerByVacationId(@PathVariable long vacation_id) {
+		List<Employee> list3 = new ArrayList<>();
+		List<Long> list = vacationService.getApprovedIdByVacationId(vacation_id);
+		for (Long m : list) {
+			list3.add(employeeService.getEmployeeById(m));
+		}
+	return list3;
 
+	
+	}
+	//get disapproved manager/leader ( one disapprove >> vacation disapprove)
+	@GetMapping("/vacations/disapprovedLog/{vacation_id}")
+	public Employee getDisApprovedManagerByVacationId(@PathVariable long vacation_id) {
+		return employeeService.getEmployeeById(vacationService.getDisApproveIdByVacationId(vacation_id));
+	}
+	
 	// edit vacation
 	@PutMapping("/vacations")
 	public @ResponseBody Payload editVacation(@RequestBody Vacation vacation) {
@@ -433,7 +460,7 @@ public class MainRestController {
 	
 
 	@PostMapping("/vacations/searchv1")
-	public @ResponseBody Payload searchVacation(@RequestParam Long manager_id,
+	public @ResponseBody Payload searchVacation(@RequestParam ("manager_id") Long manager_id,
 												@RequestParam ("page") int page,
 												@RequestParam ("pageSize") int pageSize,
 												@RequestParam ("sortedColumn") String sortedColumn,
@@ -460,7 +487,7 @@ public class MainRestController {
 	//search page employee
 	
 	@PostMapping("/vacations/searchv2")
-	public @ResponseBody Payload searchVacationP2(  @RequestParam Long employee_id,
+	public @ResponseBody Payload searchVacationP2(  @RequestParam ("employee_id")Long employee_id,
 													@RequestParam ("page") int page,
 													@RequestParam ("pageSize") int pageSize,
 													@RequestParam ("sortedColumn") String sortedColumn,
