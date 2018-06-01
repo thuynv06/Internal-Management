@@ -1,12 +1,18 @@
 package Com.IFI.InternalTool.DS.Model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 @Entity
 @Table(name="employee")
@@ -14,7 +20,7 @@ public class Employee implements Serializable{
 	@Id
 	@Column(name = "employee_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long employee_id;
+	private Long employee_id;
 	@Column(name = "username")
 	private String username;
 	@Column(name = "password")
@@ -38,18 +44,33 @@ public class Employee implements Serializable{
 	@Column(name = "phone")
 	private String phone;
 	
+	@ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_role",
+            joinColumns = @JoinColumn(name = "employee_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles= new HashSet<>();
 	
 	public Employee() {
 		
 	}
 
 	//setter getter
+	
+	
 	public long getEmployee_id() {
 		return employee_id;
 	}
 
 
-	public void setEmployee_id(int employee_id) {
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+
+	public void setEmployee_id(Long employee_id) {
 		this.employee_id = employee_id;
 	}
 

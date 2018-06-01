@@ -4,7 +4,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +27,6 @@ import Com.IFI.InternalTool.BS.Service.EmployeeService;
 import Com.IFI.InternalTool.BS.Service.ProjectService;
 import Com.IFI.InternalTool.BS.Service.VacationService;
 import Com.IFI.InternalTool.DS.Model.Employee;
-import Com.IFI.InternalTool.DS.Model.Group_IFI;
 import Com.IFI.InternalTool.DS.Model.Project;
 import Com.IFI.InternalTool.DS.Model.Project_Manager;
 import Com.IFI.InternalTool.DS.Model.Vacation;
@@ -27,175 +34,21 @@ import Com.IFI.InternalTool.DS.Model.Vacation_Approved;
 import Com.IFI.InternalTool.DS.Model.Vacation_Log;
 import Com.IFI.InternalTool.DS.Model.Vacation_Type;
 import Com.IFI.InternalTool.DS.Model.SearchModel.VacationSearch;
-
+import Com.IFI.InternalTool.Security.CurrentUser;
+import Com.IFI.InternalTool.Security.UserPrincipal;
 @RestController
-public class MainRestController {
+public class VacationRestController {
+
+	/*-----------Begin Vacation MainRestController--------*/
+	
+	@Autowired
+	VacationService vacationService;
 	@Autowired
 	EmployeeService employeeService;
 	@Autowired
 	ProjectService projectService;
-	@Autowired
-	VacationService vacationService;
-	/*-----------Begin Employee MainRestController--------*/
-
-	// get all employee data
-	@GetMapping("/employees")
-	public List<Employee> getAllEmployee(@RequestParam ("page") int page,
-										 @RequestParam ("pageSize") int pageSize,
-										 @RequestParam ("sortedColumn") String sortedColumn,
-										 @RequestParam ("desc") Boolean desc) {
-			return employeeService.getAllEmployee(page,pageSize,sortedColumn,desc);
-		
-	}
-
-	// get all Group data
-	@GetMapping("/groups")
-	public List<Group_IFI> getAllGroup() {
-		return employeeService.getAllGroup();
-	}
-
-	// get employee by id
-	@GetMapping("/employees/{employee_id}")
-	public @ResponseBody Payload getEmployeeById(@PathVariable long employee_id) {
-		Payload message = new Payload();
-		if(employeeService.getEmployeeById(employee_id)!=null) {
-			message.setDescription("Get employee successfully");
-			message.setCode("CODE OK!");
-			message.setStatus("OK!");
-			message.setData(employeeService.getEmployeeById(employee_id));
-		}
-		else {
-			message.setDescription("Employee not found");
-			message.setCode("CODE OK!");
-			message.setStatus("OK!");
-			message.setData(employeeService.getEmployeeById(employee_id));
-		}
-		
-		return message;
-	}
-	// save or update employee
-
-	@PostMapping("/employees")
-	public @ResponseBody Payload saveEmployee(@RequestBody Employee employee) {
-		Payload message = new Payload();
-			try {
-			employeeService.saveEmployee(employee);
-			message.setDescription("Save or Update employee successfully");
-			message.setCode("CODE OK!");
-			message.setStatus("OK!");
-			message.setData(employee);
-			}
-			catch (Exception ex) {
-				message.setDescription(ex.getMessage());
-				message.setCode("Error");
-				message.setStatus("Error");
-			}
-		return message;
-	}
-
-	// delete employee by id
-
-	@DeleteMapping("/employees/{employee_id}")
-	public @ResponseBody Payload deleteEmployee(@PathVariable long employee_id) {
-		Payload message = new Payload();
-			if(employeeService.deleteEmployee(employee_id)==true)
-			{
-			message.setDescription("Delete employee successfully");
-			message.setCode("CODE OK!");
-			message.setStatus("OK!");
-			message.setData("");
-		} 
-		else   {
-			message.setDescription("Can not delete! Employee not found");
-			message.setCode("OK");
-			message.setStatus("OK");
-			}
-		
-		return message;
-	}
-	/*-----------End Employee MainRestController--------*/
-
-	/*-----------Begin Project MainRestController--------*/
-
-	// get all project data
-	@GetMapping("/projects")
-	public List<Project> getAllProject() {
-		return projectService.getAllProject();
-	}
-
-	// get project by id
-	@GetMapping("/projects/{project_id}")
-	public @ResponseBody Payload getProjectById(@PathVariable long project_id) {
-		Payload message = new Payload();
-		if(projectService.getProjectById(project_id)!=null) {
-			message.setDescription("Get project successfully");
-			message.setCode("CODE OK!");
-			message.setStatus("OK!");
-			message.setData(projectService.getProjectById(project_id));
-		}
-		else {
-			message.setDescription("Project not found");
-			message.setCode("CODE OK!");
-			message.setStatus("OK!");
-		}
-		return message;
-	}
-
-	// save or update project
-
-	@PostMapping("/projects")
-	public @ResponseBody Payload saveProject(@RequestBody Project project) {
-		Payload message = new Payload();
-		Date start_date=project.getStart_date();
-		Date end_date=project.getEnd_date();
-		if (start_date.compareTo(end_date)<0 || end_date==null) {
-			projectService.saveProject(project);
-			message.setDescription("Save or Update project successfully");
-			message.setCode("CODE OK!");
-			message.setStatus("OK!");
-			message.setData(project);
-		} else {
-			message.setDescription("Error Date!");
-			message.setCode("Error");
-			message.setStatus("Error!");
-		}
-		;
-		return message;
-	}
-
-	// delete project by id
-
-	@DeleteMapping("/projects/{project_id}")
-	public @ResponseBody Payload deleteProject(@PathVariable long project_id) {
-		Payload message = new Payload();
-		if (projectService.deleteProject(project_id)==true) {
-			message.setDescription("Delete project successfully");
-			message.setCode("CODE OK!");
-			message.setStatus("OK!");
-			message.setData("");
-		} else {
-			message.setDescription("Can not delete. Project not found");
-			message.setCode("CODE OK!");
-			message.setStatus("OK!");
-			message.setData("");
-			}
-		return message;
-	}
-
-	// get project by employee_id from project_manager table
-	@GetMapping("/projects/employee")
-	public List<Project> getProjectByEmp(@RequestParam long employee_id) {
-		List<Long> list = projectService.getProjectByEmp(employee_id);
-		List<Project> list2 = new ArrayList<>();
-		for (Long m : list) {
-			list2.add(projectService.getProjectById(m));
-		}
-		return list2;
-	}
-
-	/*-----------End Project MainRestController--------*/
-
-	/*-----------Begin Vacation MainRestController--------*/
+	
+	private static final Logger logger = LoggerFactory.getLogger(VacationRestController.class);
 	//get vacation by id
 	@GetMapping("/vacations/{vacation_id}")
 	public Vacation getVacationById(@PathVariable("vacation_id") long vacation_id) {
@@ -204,14 +57,47 @@ public class MainRestController {
 	}
 	
 	
-	//get all vacation (employee page)
-	@GetMapping("/vacations/employee")
-	public @ResponseBody Payload getVacationByEmp(@RequestParam long employee_id,
+	//test
+	@RolesAllowed("hasRole('USER')")
+	@GetMapping("/vacations/employee1")
+	public @ResponseBody Payload getVacationByEmp1(@CurrentUser UserPrincipal currentUser,
 												  @RequestParam ("page") int page,
 												  @RequestParam ("pageSize") int pageSize,
 												  @RequestParam ("sortedColumn") String sortedColumn,
-												  @RequestParam ("desc") Boolean desc) {
+												  @RequestParam ("desc") Boolean desc) throws ServletException{
+		
+		logger.info(currentUser.getUsername() + currentUser.getId());
+		
 		Payload message = new Payload();
+	//	HttpSession session = (request.getSession());
+	 //   Long employee_id= (Long) session.getAttribute("userId");
+		if(vacationService.getAllVacationByEmp(currentUser.getId(),page,pageSize,sortedColumn,desc).size()!=0) {
+			message.setDescription("Get vacations by employee successfully");
+			message.setCode("CODE OK!");
+			message.setStatus("OK!");
+			message.setData(vacationService.getAllVacationByEmp(currentUser.getId(),page,pageSize,sortedColumn,desc));
+		}
+		else {
+			message.setDescription("Vacation by employee not found!");
+			message.setCode("CODE OK!");
+			message.setStatus("OK!");
+		}
+		
+
+		return message;
+	}
+	
+	
+	//get all vacation (employee page)
+	@GetMapping("/vacations/employee")
+	public @ResponseBody Payload getVacationByEmp(HttpServletRequest request,
+												  @RequestParam ("page") int page,
+												  @RequestParam ("pageSize") int pageSize,
+												  @RequestParam ("sortedColumn") String sortedColumn,
+												  @RequestParam ("desc") Boolean desc) throws ServletException{
+		Payload message = new Payload();
+		HttpSession session = (request.getSession());
+	    Long employee_id= (Long) session.getAttribute("userId");
 		if(vacationService.getAllVacationByEmp(employee_id,page,pageSize,sortedColumn,desc).size()!=0) {
 			message.setDescription("Get vacations by employee successfully");
 			message.setCode("CODE OK!");
@@ -406,11 +292,13 @@ public class MainRestController {
 	
 	//get vacation  ( manager/leader page)
 		@GetMapping("/vacations/manager")
-		public List<Vacation> getEmployeeVacationByManager(@RequestParam("manager_id") long manager_id,
+		public List<Vacation> getEmployeeVacationByManager(     HttpServletRequest request,
 																@RequestParam ("page") int page,
 																@RequestParam ("pageSize") int pageSize,
 																@RequestParam ("sortedColumn") String sortedColumn,
-																@RequestParam ("desc") Boolean desc) {
+																@RequestParam ("desc") Boolean desc) throws ServletException {
+			HttpSession session = (request.getSession());
+		    Long manager_id= (Long) session.getAttribute("userId");
 			List<Vacation> listVacation=vacationService.getAllVacationByEmp2(manager_id, page, pageSize, sortedColumn, desc);
 			return listVacation;
 
@@ -418,8 +306,10 @@ public class MainRestController {
 		
 		//approve a request
 		@GetMapping("/vacations/approve")
-		public Vacation approveEmployeeRequest(@RequestParam("manager_id") long manager_id, @RequestParam("vacation_id") long vacation_id) {
-				Vacation v=vacationService.getVacationById(vacation_id);
+		public Vacation approveEmployeeRequest(HttpServletRequest request, @RequestParam("vacation_id") long vacation_id) throws ServletException {
+			HttpSession session = (request.getSession());
+		    Long manager_id= (Long) session.getAttribute("userId");	
+			Vacation v=vacationService.getVacationById(vacation_id);
 				Vacation_Log v_log=vacationService.getVacationLogByVacationIdAndNextApproveId(vacation_id, manager_id);
 				int max=vacationService.getMaxPriority(vacation_id);
 				int my_prio=vacationService.getPriority(manager_id, vacation_id);
@@ -442,8 +332,9 @@ public class MainRestController {
 		
 		//disapprove a request
 			@GetMapping("/vacations/disapprove")
-			public Vacation disapproveEmployeeRequest( @RequestParam("manager_id") long manager_id,@RequestParam("vacation_id") long vacation_id) {
-					
+			public Vacation disapproveEmployeeRequest( HttpServletRequest request,@RequestParam("vacation_id") long vacation_id)  throws ServletException{
+					HttpSession session = (request.getSession());
+					Long manager_id= (Long) session.getAttribute("userId");	
 					Vacation v=vacationService.getVacationById(vacation_id);
 					Vacation_Log v_log=vacationService.getVacationLogByVacationIdAndNextApproveId(vacation_id, manager_id);
 					v.setStatus(-1);
@@ -514,6 +405,5 @@ public class MainRestController {
 	
 	
 	/*-----------End Vacation MainRestController--------*/
-	
 	
 }
